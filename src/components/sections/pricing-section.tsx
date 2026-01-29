@@ -5,9 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Check, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
-interface PricingSectionProps {
-  onGetStarted?: () => void;
-}
 
 const includedFeatures = [
   "Complete e-commerce store setup",
@@ -26,7 +23,7 @@ const paymentMethods = [
   { name: "JazzCash / EasyPaisa", available: true },
 ];
 
-export function PricingSection({ onGetStarted }: PricingSectionProps) {
+export function PricingSection() {
   return (
     <section id="pricing" className="pt-8 md:pt-12 pb-16 md:pb-24 bg-white">
       <div className="container-custom">
@@ -68,7 +65,7 @@ export function PricingSection({ onGetStarted }: PricingSectionProps) {
               </Link>
 
               <div className="space-y-4">
-                <p className="font-medium text-gray-900 text-sm">What's included in PKR 45,000:</p>
+                <p className="font-medium text-gray-900 text-sm">What&apos;s included in PKR 45,000:</p>
                 <ul className="space-y-3">
                   {includedFeatures.map((feature, index) => (
                     <li key={index} className="flex items-start gap-3 text-sm text-gray-700">

@@ -43,7 +43,7 @@ export function TestimonialsSection() {
             <AnimatedSection key={index} delay={index * 100}>
               <div className="h-full p-6 border border-gray-200 rounded-lg bg-gray-50/50">
                 <p className="text-gray-800 mb-6 leading-relaxed font-medium">
-                  "{testimonial.quote}"
+                  &quot;{testimonial.quote}&quot;
                 </p>
                 <div>
                   <p className="font-semibold text-gray-900">{testimonial.author}</p>

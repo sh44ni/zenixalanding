@@ -13,8 +13,8 @@ export default function PrivacyPage() {
                 <div className="prose prose-gray max-w-none text-gray-600">
                     <p>Last updated: January 29, 2026</p>
                     <p>
-                        Projekts Vision (Private) Limited ("us", "we", or "our") operates the Zenixa website
-                        and the Zenixa e-commerce platform (the "Service"). This page informs you of our policies
+                        Projekts Vision (Private) Limited (&quot;us&quot;, &quot;we&quot;, or &quot;our&quot;) operates the Zenixa website
+                        and the Zenixa e-commerce platform (the &quot;Service&quot;). This page informs you of our policies
                         regarding the collection, use, and disclosure of personal data when you use our Service
                         and the choices you have associated with that data.
                     </p>

@@ -13,8 +13,8 @@ export default function TermsPage() {
                 <div className="prose prose-gray max-w-none text-gray-600">
                     <p>Last updated: January 29, 2026</p>
                     <p>
-                        Please read these Terms of Service ("Terms", "Terms of Service") carefully before using the Zenixa
-                        platform operated by Projekts Vision (Private) Limited ("us", "we", or "our").
+                        Please read these Terms of Service (&quot;Terms&quot;, &quot;Terms of Service&quot;) carefully before using the Zenixa
+                        platform operated by Projekts Vision (Private) Limited (&quot;us&quot;, &quot;we&quot;, or &quot;our&quot;).
                     </p>
                     <h3>1. Terms</h3>
                     <p>
@@ -28,7 +28,7 @@ export default function TermsPage() {
                     </p>
                     <h3>3. Disclaimer</h3>
                     <p>
-                        The materials on Zenixa's website are provided on an 'as is' basis. Projekts Vision makes no warranties, expressed or implied,
+                        The materials on Zenixa&apos;s website are provided on an &apos;as is&apos; basis. Projekts Vision makes no warranties, expressed or implied,
                         and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability,
                         fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.
                     </p>

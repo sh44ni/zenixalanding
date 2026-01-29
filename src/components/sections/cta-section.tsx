@@ -2,7 +2,7 @@
 
 import { AnimatedSection } from "@/components/shared/animated-section";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, MessageCircle, Phone, Calendar } from "lucide-react";
+import { ArrowRight, MessageCircle, Calendar } from "lucide-react";
 import Link from "next/link";
 
 interface CtaSectionProps {

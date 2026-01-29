@@ -60,6 +60,7 @@ const technicalSpecs = [
     label: "Technology",
     value: (
       <div className="flex items-center gap-2">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="https://assets.vercel.com/image/upload/v1662130559/nextjs/Icon_light_background.png"
           alt="Next.js"
@@ -67,6 +68,7 @@ const technicalSpecs = [
         />
         <span className="text-gray-900 font-medium">Next.js</span>
         <span className="text-gray-300">|</span>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="https://upload.wikimedia.org/wikipedia/commons/2/29/Postgresql_elephant.svg"
           alt="PostgreSQL"

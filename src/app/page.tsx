@@ -6,7 +6,7 @@ import { ComparisonSection } from "@/components/sections/comparison-section";
 import { PricingSection } from "@/components/sections/pricing-section";
 import { TestimonialsSection } from "@/components/sections/testimonials-section";
 import { FaqSection } from "@/components/sections/faq-section";
-import { CtaSection } from "@/components/sections/cta-section";
+
 import { useContactModal } from "@/context/contact-modal-context";
 
 export default function HomePage() {
@@ -17,7 +17,7 @@ export default function HomePage() {
       <HeroSection onGetStarted={openModal} />
       <FeaturesSection />
       <ComparisonSection />
-      <PricingSection onGetStarted={openModal} />
+      <PricingSection />
       <TestimonialsSection />
       <FaqSection onContactClick={openModal} />
     </>

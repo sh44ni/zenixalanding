@@ -2,10 +2,8 @@
 
 import { PricingSection } from "@/components/sections/pricing-section";
 import { ComparisonSection } from "@/components/sections/comparison-section";
-import { useContactModal } from "@/context/contact-modal-context";
 
 export function PricingClient() {
-    const { openModal } = useContactModal();
 
     return (
         <div className="pt-12">
@@ -17,7 +15,7 @@ export function PricingClient() {
                     Pay once, own it forever. No hidden fees.
                 </p>
             </div>
-            <PricingSection onGetStarted={openModal} />
+            <PricingSection />
             <ComparisonSection />
         </div>
     );
