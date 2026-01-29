@@ -73,12 +73,12 @@ export function FaqSection({ onContactClick }: FaqSectionProps) {
       <div className="container-custom">
         {/* Section Header */}
         <AnimatedSection className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 text-accent rounded-full text-sm font-medium mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-900 rounded-full text-sm font-medium mb-6">
             <HelpCircle className="w-4 h-4" />
             Got Questions?
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
-            Frequently Asked <span className="text-primary">Questions</span>
+            Frequently Asked Questions
           </h2>
           <p className="text-lg text-slate-600">
             Everything you need to know about Zenixa and our e-commerce solution.
@@ -86,58 +86,62 @@ export function FaqSection({ onContactClick }: FaqSectionProps) {
           </p>
         </AnimatedSection>
 
-        {/* FAQ Accordion */}
-        <AnimatedSection delay={200}>
-          <div className="max-w-3xl mx-auto">
-            <Accordion type="single" collapsible className="space-y-4">
-              {faqs.map((faq, index) => (
-                <AccordionItem
-                  key={index}
-                  value={`item-${index}`}
-                  className="bg-slate-50 rounded-xl border border-slate-100 px-6 data-[state=open]:border-primary/30 data-[state=open]:shadow-md transition-all duration-200"
-                >
-                  <AccordionTrigger className="text-left text-base font-medium hover:no-underline py-5">
-                    {faq.question}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-slate-600 leading-relaxed">
-                    {faq.answer}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
+        <div className="grid lg:grid-cols-12 gap-12 items-start">
+          {/* Left: Questions */}
+          <div className="lg:col-span-8">
+            <AnimatedSection delay={200}>
+              <Accordion type="single" collapsible className="w-full">
+                {faqs.map((faq, index) => (
+                  <AccordionItem
+                    key={index}
+                    value={`item-${index}`}
+                    className="border-b border-gray-100 last:border-0"
+                  >
+                    <AccordionTrigger className="text-left text-base font-medium hover:no-underline py-4 text-gray-900">
+                      {faq.question}
+                    </AccordionTrigger>
+                    <AccordionContent className="text-gray-600 leading-relaxed pb-4">
+                      {faq.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </AnimatedSection>
           </div>
-        </AnimatedSection>
 
-        {/* Still Have Questions CTA */}
-        <AnimatedSection delay={400} className="mt-16">
-          <div className="max-w-2xl mx-auto text-center p-8 bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl border border-slate-200">
-            <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
-              <MessageCircle className="w-8 h-8 text-primary" />
-            </div>
-            <h3 className="text-xl font-bold text-slate-900 mb-2">
-              Still have questions?
-            </h3>
-            <p className="text-slate-600 mb-6">
-              Our team is here to help. Get in touch and we&apos;ll respond within 24 hours.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Button onClick={onContactClick}>Contact Us</Button>
-              <Button
-                variant="outline"
-                onClick={() => {
-                  const message = encodeURIComponent(
-                    "Hi! I have a question about Zenixa e-commerce platform."
-                  );
-                  window.open(`https://wa.me/923000000000?text=${message}`, "_blank");
-                }}
-                leftIcon={<MessageCircle className="w-4 h-4" />}
-                className="border-green-500 text-green-600 hover:bg-green-50 hover:text-green-700"
-              >
-                WhatsApp Us
-              </Button>
-            </div>
+          {/* Right: CTA */}
+          <div className="lg:col-span-4 sticky top-24">
+            <AnimatedSection delay={400}>
+              <div className="text-center p-8 bg-gray-50 rounded-2xl border border-gray-100">
+                <div className="w-16 h-16 rounded-2xl bg-white flex items-center justify-center mx-auto mb-4 shadow-sm border border-gray-100">
+                  <MessageCircle className="w-8 h-8 text-[#25D366]" />
+                </div>
+                <h3 className="text-xl font-bold text-slate-900 mb-2">
+                  Still have questions?
+                </h3>
+                <p className="text-slate-600 mb-6 text-sm">
+                  Our team is here to help. Get in touch and we&apos;ll respond within 24 hours.
+                </p>
+                <div className="flex flex-col gap-3">
+                  <Button onClick={onContactClick} className="w-full bg-gray-900 hover:bg-gray-800 text-white">Contact Us</Button>
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      const message = encodeURIComponent(
+                        "Hi! I have a question about Zenixa e-commerce platform."
+                      );
+                      window.open(`https://wa.me/923000000000?text=${message}`, "_blank");
+                    }}
+                    leftIcon={<MessageCircle className="w-4 h-4" />}
+                    className="w-full border-[#25D366] text-[#25D366] hover:bg-green-50"
+                  >
+                    WhatsApp Us
+                  </Button>
+                </div>
+              </div>
+            </AnimatedSection>
           </div>
-        </AnimatedSection>
+        </div>
       </div>
     </section>
   );

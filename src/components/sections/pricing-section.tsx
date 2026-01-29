@@ -1,253 +1,133 @@
 "use client";
 
-import { useState } from "react";
 import { AnimatedSection } from "@/components/shared/animated-section";
 import { Button } from "@/components/ui/button";
-import {
-  Check,
-  Sparkles,
-  ArrowRight,
-  Shield,
-  Clock,
-  Headphones,
-  Plus,
-  Star,
-} from "lucide-react";
-import { cn } from "@/lib/utils";
+import { Check, ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 interface PricingSectionProps {
-  onGetStarted: () => void;
+  onGetStarted?: () => void;
 }
 
-const mainFeatures = [
+const includedFeatures = [
   "Complete e-commerce store setup",
-  "Premium responsive theme",
-  "Unlimited product listings",
-  "JazzCash & EasyPaisa integration",
-  "Cash on Delivery support",
-  "Order management system",
-  "Customer accounts & profiles",
-  "Inventory tracking",
-  "SEO optimization",
-  "Mobile-optimized design",
-  "Admin dashboard & analytics",
-  "WhatsApp integration",
-  "Free SSL certificate",
-  "1-year hosting included",
-  "30-day post-launch support",
+  "Free .pk domain (worth PKR 2,000)",
+  "1 year hosting included (worth PKR 15,000)",
+  "Mobile-responsive design",
+  "Admin panel with inventory management",
+  "Payment integration (COD + Bank Transfer)",
+  "Basic customization",
+  "30-day support included",
 ];
 
-const addOns = [
-  {
-    title: "Additional Products Setup",
-    description: "We'll upload and organize up to 100 products for you",
-    price: "10,000",
-  },
-  {
-    title: "Custom Domain",
-    description: "Premium .pk or .com domain registration",
-    price: "5,000",
-  },
-  {
-    title: "Extended Support",
-    description: "6 months of priority support & maintenance",
-    price: "15,000",
-  },
-  {
-    title: "Social Media Setup",
-    description: "Facebook & Instagram shop integration",
-    price: "8,000",
-  },
-];
-
-const guarantees = [
-  { icon: Clock, text: "24-hour launch guarantee" },
-  { icon: Shield, text: "100% money-back guarantee" },
-  { icon: Headphones, text: "Free consultation included" },
+const paymentMethods = [
+  { name: "Bank Transfer", available: true },
+  { name: "Cash on Delivery", available: true },
+  { name: "JazzCash / EasyPaisa", available: true },
 ];
 
 export function PricingSection({ onGetStarted }: PricingSectionProps) {
-  const [showAllFeatures, setShowAllFeatures] = useState(false);
-  const visibleFeatures = showAllFeatures ? mainFeatures : mainFeatures.slice(0, 8);
-
   return (
-    <section id="pricing" className="section-padding bg-white">
+    <section id="pricing" className="pt-8 md:pt-12 pb-16 md:pb-24 bg-white">
       <div className="container-custom">
         {/* Section Header */}
-        <AnimatedSection className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-secondary/10 text-secondary rounded-full text-sm font-medium mb-6">
-            <Sparkles className="w-4 h-4" />
-            Simple, Transparent Pricing
-          </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
-            One Price. <span className="text-primary">Everything Included.</span>
+        <AnimatedSection className="max-w-2xl mb-12">
+          <p className="text-sm font-medium text-gray-500 mb-3 uppercase tracking-wide">
+            Pricing
+          </p>
+          <h2 className="text-3xl sm:text-4xl font-semibold text-gray-900 mb-4">
+            Transparent Pricing
           </h2>
-          <p className="text-lg text-slate-600">
-            No hidden fees. No monthly subscriptions. Just one payment for your
-            complete e-commerce solution.
+          <p className="text-lg text-gray-600">
+            Get everything you need to start selling online with a single payment.
           </p>
         </AnimatedSection>
 
-        {/* Main Pricing Card */}
-        <AnimatedSection delay={200}>
-          <div className="max-w-4xl mx-auto">
-            <div className="relative bg-white rounded-3xl shadow-2xl border-2 border-primary overflow-hidden">
-              {/* Popular Badge */}
-              <div className="absolute top-0 right-0">
-                <div className="bg-secondary text-white px-6 py-2 text-sm font-semibold rounded-bl-2xl flex items-center gap-2">
-                  <Star className="w-4 h-4 fill-current" />
-                  Most Popular
+        <div className="grid lg:grid-cols-2 gap-8 items-start">
+          {/* Pricing Card */}
+          <AnimatedSection delay={100}>
+            <div className="border border-gray-200 rounded-lg p-8 bg-white shadow-sm">
+              <div className="mb-8">
+                <p className="text-sm text-gray-500 mb-2">Complete Package</p>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-5xl font-semibold text-gray-900">PKR 45,000</span>
+                  <span className="text-gray-500">one-time</span>
                 </div>
+                <p className="text-sm text-gray-500 mt-2">
+                  Includes domain & hosting for 1st year.
+                </p>
               </div>
 
-              <div className="p-8 md:p-12">
-                <div className="grid lg:grid-cols-2 gap-10">
-                  {/* Left Side - Price & CTA */}
-                  <div>
-                    <h3 className="text-2xl font-bold text-slate-900 mb-2">
-                      Complete E-commerce Package
-                    </h3>
-                    <p className="text-slate-600 mb-6">
-                      Everything you need to launch and run your online store
-                    </p>
-
-                    {/* Price */}
-                    <div className="mb-8">
-                      <div className="flex items-baseline gap-2">
-                        <span className="text-5xl md:text-6xl font-bold text-primary">
-                          PKR 45,000
-                        </span>
-                      </div>
-                      <p className="text-slate-500 mt-2">
-                        One-time payment • No monthly fees
-                      </p>
-                    </div>
-
-                    {/* Guarantees */}
-                    <div className="space-y-3 mb-8">
-                      {guarantees.map((guarantee, index) => (
-                        <div key={index} className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
-                            <guarantee.icon className="w-4 h-4 text-primary" />
-                          </div>
-                          <span className="text-sm text-slate-700">
-                            {guarantee.text}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* CTA Button */}
-                    <Button
-                      size="xl"
-                      className="w-full"
-                      onClick={onGetStarted}
-                      rightIcon={<ArrowRight className="w-5 h-5" />}
-                    >
-                      Get Started Now
-                    </Button>
-
-                    <p className="text-center text-sm text-slate-500 mt-4">
-                      No credit card required for consultation
-                    </p>
-                  </div>
-
-                  {/* Right Side - Features */}
-                  <div className="bg-slate-50 rounded-2xl p-6">
-                    <h4 className="font-semibold text-slate-900 mb-4 flex items-center gap-2">
-                      <Check className="w-5 h-5 text-primary" />
-                      What&apos;s Included
-                    </h4>
-                    <ul className="space-y-3">
-                      {visibleFeatures.map((feature, index) => (
-                        <li
-                          key={index}
-                          className="flex items-start gap-3 text-sm"
-                        >
-                          <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
-                            <Check className="w-3 h-3 text-primary" />
-                          </div>
-                          <span className="text-slate-700">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    {mainFeatures.length > 8 && (
-                      <button
-                        onClick={() => setShowAllFeatures(!showAllFeatures)}
-                        className="text-primary font-medium text-sm mt-4 hover:underline flex items-center gap-1"
-                      >
-                        {showAllFeatures ? "Show less" : `+${mainFeatures.length - 8} more features`}
-                      </button>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </AnimatedSection>
-
-        {/* Add-ons Section */}
-        <AnimatedSection delay={400} className="mt-16">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-8">
-              <h3 className="text-2xl font-bold text-slate-900 mb-2">
-                Optional Add-ons
-              </h3>
-              <p className="text-slate-600">
-                Enhance your package with additional services
-              </p>
-            </div>
-
-            <div className="grid sm:grid-cols-2 gap-4">
-              {addOns.map((addon, index) => (
-                <div
-                  key={index}
-                  className="flex items-start gap-4 p-5 bg-slate-50 rounded-xl border border-slate-100 hover:border-primary/30 transition-colors"
+              <Link href="https://wa.me/923040260023" target="_blank">
+                <Button
+                  className="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white py-6 text-base font-medium rounded-lg mb-8"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center shrink-0">
-                    <Plus className="w-5 h-5 text-accent" />
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-start justify-between gap-4">
-                      <div>
-                        <h4 className="font-semibold text-slate-900">
-                          {addon.title}
-                        </h4>
-                        <p className="text-sm text-slate-500 mt-1">
-                          {addon.description}
-                        </p>
-                      </div>
-                      <div className="text-right shrink-0">
-                        <span className="font-bold text-primary">
-                          PKR {addon.price}
-                        </span>
-                      </div>
+                  WhatsApp Us for Quote
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              </Link>
+
+              <div className="space-y-4">
+                <p className="font-medium text-gray-900 text-sm">What's included in PKR 45,000:</p>
+                <ul className="space-y-3">
+                  {includedFeatures.map((feature, index) => (
+                    <li key={index} className="flex items-start gap-3 text-sm text-gray-700">
+                      <Check className="w-4 h-4 text-green-600 mt-0.5 shrink-0" />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </AnimatedSection>
+
+          {/* Payment Methods & FAQ */}
+          <div className="space-y-6">
+            <AnimatedSection delay={200}>
+              <div className="border border-gray-200 rounded-lg p-6 bg-white">
+                <h3 className="font-medium text-gray-900 mb-4">Accepted Payment Methods</h3>
+                <div className="space-y-3">
+                  {paymentMethods.map((method, index) => (
+                    <div key={index} className="flex items-center justify-between text-sm">
+                      <span className="text-gray-700">{method.name}</span>
+                      {method.available ? (
+                        <div className="flex items-center gap-2 text-gray-900 font-medium">
+                          <Check className="w-4 h-4" />
+                          <span>Accepted</span>
+                        </div>
+                      ) : (
+                        <span className="text-gray-400 bg-gray-100 px-2 py-1 rounded text-xs">Coming Soon</span>
+                      )}
                     </div>
+                  ))}
+                </div>
+              </div>
+            </AnimatedSection>
+
+            <AnimatedSection delay={300}>
+              <div className="border border-gray-200 rounded-lg p-6 bg-white">
+                <h3 className="font-medium text-gray-900 mb-4">Common Questions</h3>
+                <div className="space-y-4 text-sm">
+                  <div>
+                    <p className="font-medium text-gray-900">What about renewal costs?</p>
+                    <p className="text-gray-600 mt-1">
+                      After the first year, you only pay for domain (~PKR 2,500) and hosting renewal (~PKR 15,000).
+                      No other fees.
+                    </p>
+                  </div>
+                  <div>
+                    <p className="font-medium text-gray-900">Do I need technical knowledge?</p>
+                    <p className="text-gray-600 mt-1">No. We handle setup and provide a user-friendly admin panel.</p>
+                  </div>
+                  <div>
+                    <p className="font-medium text-gray-900">How long does setup take?</p>
+                    <p className="text-gray-600 mt-1">Typically 2 working days after receiving your content.</p>
                   </div>
                 </div>
-              ))}
-            </div>
+              </div>
+            </AnimatedSection>
           </div>
-        </AnimatedSection>
-
-        {/* Payment Methods */}
-        <AnimatedSection delay={600} className="mt-16">
-          <div className="text-center">
-            <p className="text-sm text-slate-500 mb-4">Accepted Payment Methods</p>
-            <div className="flex flex-wrap justify-center gap-6">
-              {["Bank Transfer", "JazzCash", "EasyPaisa", "Cash"].map(
-                (method, index) => (
-                  <div
-                    key={index}
-                    className="px-6 py-3 bg-slate-100 rounded-lg text-sm font-medium text-slate-600"
-                  >
-                    {method}
-                  </div>
-                )
-              )}
-            </div>
-          </div>
-        </AnimatedSection>
+        </div>
       </div>
     </section>
   );
