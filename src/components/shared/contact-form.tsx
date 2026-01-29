@@ -40,21 +40,34 @@ export function ContactForm({ onSuccess }: ContactFormProps) {
     const onSubmit = async (data: ContactFormData) => {
         setIsSubmitting(true);
 
-        // Simulate API call
-        await new Promise((resolve) => setTimeout(resolve, 1500));
+        try {
+            const response = await fetch("/api/send", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data),
+            });
 
-        console.log("Form submitted:", data);
+            if (!response.ok) throw new Error("Failed to send message");
 
-        toast({
-            title: "Message sent successfully!",
-            description: "We'll get back to you within 24 hours.",
-            variant: "success",
-        });
+            toast({
+                title: "Message sent successfully!",
+                description: "We'll get back to you within 24 hours.",
+                // variant: "success", // 'success' variant might not exist in default toast, using default generic or safe fallback
+            });
 
-        reset();
-        setIsSubmitting(false);
-        if (onSuccess) {
-            onSuccess();
+            reset();
+            if (onSuccess) {
+                onSuccess();
+            }
+        } catch (error) {
+            console.error(error);
+            toast({
+                title: "Something went wrong",
+                description: "Please try again later or contact us on WhatsApp.",
+                variant: "error",
+            });
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
