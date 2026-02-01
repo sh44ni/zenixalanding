@@ -190,7 +190,7 @@ export default function AccountPage() {
                             <div className="w-3 h-3 rounded-full bg-blue-500"></div>
                             <div>
                                 <p className="font-medium text-gray-900">Inquiry Received</p>
-                                <p className="text-sm text-gray-500">We've received your order request</p>
+                                <p className="text-sm text-gray-500">We&apos;ve received your order request</p>
                             </div>
                         </div>
                         <div className="flex items-center gap-3">
@@ -204,7 +204,7 @@ export default function AccountPage() {
                             <div className="w-3 h-3 rounded-full bg-purple-500"></div>
                             <div>
                                 <p className="font-medium text-gray-900">In Progress</p>
-                                <p className="text-sm text-gray-500">We're building your store</p>
+                                <p className="text-sm text-gray-500">We&apos;re building your store</p>
                             </div>
                         </div>
                         <div className="flex items-center gap-3">

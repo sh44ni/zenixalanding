@@ -12,11 +12,9 @@ import {
     Wallet,
     Copy,
     CheckCircle2,
-    ArrowRight,
     LogOut,
     Loader2,
     TrendingUp,
-    ExternalLink,
 } from "lucide-react";
 
 interface DashboardData {

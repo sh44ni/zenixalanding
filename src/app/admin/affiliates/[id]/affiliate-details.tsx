@@ -1,7 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { ArrowLeft, DollarSign, Users, Clock, Wallet } from "lucide-react";
+import { ArrowLeft, Users, Clock, Wallet } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 

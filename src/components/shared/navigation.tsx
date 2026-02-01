@@ -48,8 +48,8 @@ export function Navigation({ onContactClick }: NavigationProps) {
     checkAuth();
   }, []);
 
-  // Handle click for contact button
-  const handleContactClick = () => {
+  // Handle click for contact button - prefixed with _ as it's available for prop usage
+  const _handleContactClick = () => {
     setIsMobileMenuOpen(false);
     if (onContactClick) {
       onContactClick();
