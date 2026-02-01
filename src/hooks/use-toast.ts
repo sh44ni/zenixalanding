@@ -20,6 +20,8 @@ type ActionType = {
   REMOVE_TOAST: "REMOVE_TOAST";
 };
 
+
+
 let count = 0;
 
 function genId() {
