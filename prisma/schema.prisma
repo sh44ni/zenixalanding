@@ -1,0 +1,80 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                 String    @id @default(cuid())
+  email              String    @unique
+  name               String?
+  phone              String?
+  role               String    @default("user") // "user", "affiliate", "admin"
+  referralCode       String?   @unique
+  referredBy         String?
+  
+  // Affiliate application
+  applicationStatus  String?   // "pending", "approved", "rejected"
+  applicationDate    DateTime?
+  applicationData    Json?     // Store answers to questions
+  
+  // Wallet
+  walletBalance      Float     @default(0)
+  pendingEarnings    Float     @default(0)
+  
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  
+  otps               Otp[]
+  referralsGiven     Referral[] @relation("Referrer")
+  referralReceived   Referral?  @relation("Referred")
+  commissions        Commission[]
+}
+
+model Otp {
+  id        String   @id @default(cuid())
+  code      String
+  email     String
+  expiresAt DateTime
+  verified  Boolean  @default(false)
+  createdAt DateTime @default(now())
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    String?
+
+  @@index([email])
+  @@index([code, email])
+}
+
+model Referral {
+  id          String   @id @default(cuid())
+  referrerId  String
+  referredId  String   @unique
+  status      String   @default("signup") // "signup", "purchased", "completed"
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  referrer    User     @relation("Referrer", fields: [referrerId], references: [id])
+  referred    User     @relation("Referred", fields: [referredId], references: [id])
+
+  @@index([referrerId])
+}
+
+model Commission {
+  id          String    @id @default(cuid())
+  userId      String
+  amount      Float
+  status      String    @default("pending") // "pending", "clearance", "paid"
+  source      String    // Description of what generated this
+  referralId  String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  paidAt      DateTime?
+  
+  user        User      @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([status])
+}

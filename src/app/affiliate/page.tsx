@@ -2,12 +2,11 @@
 
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, TrendingUp, DollarSign, Users } from "lucide-react";
-import { useContactModal } from "@/context/contact-modal-context";
 import { Header } from "@/components/shared/navigation";
 import { Footer } from "@/components/shared/footer";
+import Link from "next/link";
 
 export default function AffiliatePage() {
-    const { openModal } = useContactModal();
 
     return (
         <div className="min-h-screen bg-white">
@@ -26,8 +25,8 @@ export default function AffiliatePage() {
                         Join our affiliate program and help businesses launch their dream stores.
                         Earn recurring revenue for every successful referral.
                     </p>
-                    <Button size="lg" onClick={openModal} className="text-lg px-8 py-6 h-auto">
-                        Join the Waitlist
+                    <Button size="lg" asChild className="text-lg px-8 py-6 h-auto">
+                        <Link href="/affiliate/apply">Apply Now</Link>
                     </Button>
                 </div>
 

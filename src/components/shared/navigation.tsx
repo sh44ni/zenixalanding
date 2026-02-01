@@ -14,6 +14,7 @@ interface NavigationProps {
 const navLinks = [
   { label: "Features", href: "/features" },
   { label: "Pricing", href: "/pricing" },
+  { label: "Affiliate", href: "/affiliate" },
   { label: "About", href: "/about" },
 ];
 
@@ -82,10 +83,10 @@ export function Navigation({ onContactClick }: NavigationProps) {
           </Link>
           <Button
             size="sm"
-            onClick={handleContactClick}
+            asChild
             className="bg-gray-900 hover:bg-gray-800 text-white rounded-lg px-5 h-9"
           >
-            Start Building
+            <Link href="/auth">Login</Link>
           </Button>
         </div>
 
@@ -128,9 +129,9 @@ export function Navigation({ onContactClick }: NavigationProps) {
             </Link>
             <Button
               className="w-full bg-gray-900 text-white mt-2"
-              onClick={handleContactClick}
+              asChild
             >
-              Start Building
+              <Link href="/auth" onClick={() => setIsMobileMenuOpen(false)}>Login</Link>
             </Button>
           </nav>
         </div>
@@ -138,3 +139,5 @@ export function Navigation({ onContactClick }: NavigationProps) {
     </header>
   );
 }
+
+export { Navigation as Header };

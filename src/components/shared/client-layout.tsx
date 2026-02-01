@@ -6,6 +6,7 @@ import { Footer } from "@/components/shared/footer";
 import { ContactFormModal } from "@/components/shared/contact-form-modal";
 import { FloatingWhatsApp } from "@/components/shared/floating-whatsapp";
 import { ContactModalProvider, useContactModal } from "@/context/contact-modal-context";
+import { AuthProvider } from "@/context/auth-context";
 
 interface ClientLayoutProps {
     children: ReactNode;
@@ -32,8 +33,11 @@ function LayoutContent({ children }: { children: ReactNode }) {
 
 export function ClientLayout({ children }: ClientLayoutProps) {
     return (
-        <ContactModalProvider>
-            <LayoutContent>{children}</LayoutContent>
-        </ContactModalProvider>
+        <AuthProvider>
+            <ContactModalProvider>
+                <LayoutContent>{children}</LayoutContent>
+            </ContactModalProvider>
+        </AuthProvider>
     );
 }
+
