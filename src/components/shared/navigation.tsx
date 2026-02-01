@@ -7,9 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Menu, X, ShoppingBag, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-interface NavigationProps {
-  onContactClick?: () => void;
-}
+
 
 const navLinks = [
   { label: "Features", href: "/features" },
@@ -18,7 +16,7 @@ const navLinks = [
   { label: "About", href: "/about" },
 ];
 
-export function Navigation({ onContactClick }: NavigationProps) {
+export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -48,15 +46,6 @@ export function Navigation({ onContactClick }: NavigationProps) {
     checkAuth();
   }, []);
 
-  // Handle click for contact button - prefixed with _ as it's available for prop usage
-  const _handleContactClick = () => {
-    setIsMobileMenuOpen(false);
-    if (onContactClick) {
-      onContactClick();
-    } else {
-      window.location.href = "/contact";
-    }
-  };
 
   return (
     <header

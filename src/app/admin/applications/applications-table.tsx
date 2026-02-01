@@ -188,7 +188,7 @@ export function ApplicationsTable({ applications: initialApplications }: Applica
                                     {selectedApp.referralCode}
                                 </p>
                             </div>
-                            {selectedApp.applicationData && typeof selectedApp.applicationData === "object" && (
+                            {selectedApp.applicationData && typeof selectedApp.applicationData === "object" ? (
                                 <>
                                     <hr />
                                     {Object.entries(selectedApp.applicationData as Record<string, string>).map(([key, value]) => (
@@ -200,7 +200,7 @@ export function ApplicationsTable({ applications: initialApplications }: Applica
                                         </div>
                                     ))}
                                 </>
-                            )}
+                            ) : null}
                         </div>
                         {selectedApp.applicationStatus === "pending" && (
                             <div className="p-6 border-t border-gray-100 flex gap-3">

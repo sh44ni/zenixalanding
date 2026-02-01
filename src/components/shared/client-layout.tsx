@@ -30,7 +30,7 @@ function LayoutContent({ children }: { children: ReactNode }) {
 
     return (
         <div className="flex flex-col min-h-screen">
-            <Navigation onContactClick={openModal} />
+            <Navigation />
             <main className="flex-grow pt-20">
                 {children}
             </main>

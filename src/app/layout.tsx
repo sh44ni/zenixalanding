@@ -10,6 +10,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://zenixa.pk"),
   title: "Zenixa - Launch Your Online Store in 24 Hours | E-commerce Solution Pakistan",
   description:
     "Complete e-commerce solution for Pakistani businesses. One payment, no monthly fees. Launch your professional online store in just 24 hours with Zenixa by Projekts Vision.",
