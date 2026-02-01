@@ -32,20 +32,27 @@ export function ApplicationsTable({ applications: initialApplications }: Applica
                 method: "POST",
             });
 
+            const data = await res.json();
+
             if (res.ok) {
                 if (action === "approve") {
                     setApplications((apps) => apps.filter((a) => a.id !== id));
+                    alert("Application approved! Affiliate has been notified.");
                 } else {
                     setApplications((apps) =>
                         apps.map((a) =>
                             a.id === id ? { ...a, applicationStatus: "rejected" } : a
                         )
                     );
+                    alert("Application rejected.");
                 }
                 setSelectedApp(null);
+            } else {
+                alert(`Error: ${data.error || "Action failed"}`);
             }
         } catch (error) {
             console.error("Action failed:", error);
+            alert("Network error. Please try again.");
         } finally {
             setIsLoading(null);
         }
@@ -189,7 +196,7 @@ export function ApplicationsTable({ applications: initialApplications }: Applica
                                             <p className="text-sm text-gray-500 capitalize">
                                                 {key.replace(/([A-Z])/g, " $1").trim()}
                                             </p>
-                                            <p className="font-medium whitespace-pre-wrap">{value}</p>
+                                            <p className="font-medium whitespace-pre-wrap">{String(value)}</p>
                                         </div>
                                     ))}
                                 </>

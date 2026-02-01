@@ -45,7 +45,7 @@ const buttonVariants = cva(
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
+  VariantProps<typeof buttonVariants> {
   asChild?: boolean;
   loading?: boolean;
   leftIcon?: React.ReactNode;
@@ -78,16 +78,18 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
       >
         {loading ? (
-          <>
+          <span className="inline-flex items-center">
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             Loading...
-          </>
+          </span>
+        ) : asChild ? (
+          children
         ) : (
-          <>
+          <span className="inline-flex items-center">
             {leftIcon && <span className="mr-2">{leftIcon}</span>}
             {children}
             {rightIcon && <span className="ml-2">{rightIcon}</span>}
-          </>
+          </span>
         )}
       </Comp>
     );

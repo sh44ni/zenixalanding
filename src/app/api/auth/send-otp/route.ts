@@ -61,6 +61,14 @@ export async function POST(req: NextRequest) {
             });
         }
 
+        // Invalidate any existing unverified OTPs for this email
+        await prisma.otp.deleteMany({
+            where: {
+                email: email.toLowerCase(),
+                verified: false,
+            },
+        });
+
         // Store OTP in database
         await prisma.otp.create({
             data: {

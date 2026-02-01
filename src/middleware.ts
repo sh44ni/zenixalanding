@@ -1,44 +1,40 @@
 import { NextRequest, NextResponse } from "next/server";
-import { jwtVerify } from "jose";
-
-const JWT_SECRET = new TextEncoder().encode(
-    process.env.JWT_SECRET || "zenixa-secure-jwt-secret-key-2026"
-);
-
-// Admin emails - add your email here
-const ADMIN_EMAILS = [
-    "officielprojekts@gmail.com",
-    "admin@zenixa.pk",
-];
 
 export async function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl;
 
-    // Only protect /admin routes
-    if (!pathname.startsWith("/admin")) {
-        return NextResponse.next();
-    }
-
-    const token = request.cookies.get("zenixa_session")?.value;
-
-    if (!token) {
-        return NextResponse.redirect(new URL("/auth?redirect=/admin", request.url));
-    }
-
-    try {
-        const { payload } = await jwtVerify(token, JWT_SECRET);
-        const email = payload.email as string;
-
-        if (!ADMIN_EMAILS.includes(email.toLowerCase())) {
-            return NextResponse.redirect(new URL("/?error=unauthorized", request.url));
+    // Admin routes protection
+    if (pathname.startsWith("/admin")) {
+        // Allow login page without auth
+        if (pathname === "/admin/login") {
+            return NextResponse.next();
         }
 
-        return NextResponse.next();
-    } catch {
-        return NextResponse.redirect(new URL("/auth?redirect=/admin", request.url));
+        const adminSession = request.cookies.get("admin-session")?.value;
+        if (!adminSession) {
+            return NextResponse.redirect(new URL("/admin/login", request.url));
+        }
     }
+
+    // Affiliate dashboard protection
+    if (pathname.startsWith("/affiliate/dashboard") || pathname.startsWith("/affiliate/withdraw")) {
+        const affiliateSession = request.cookies.get("affiliate-session")?.value;
+        if (!affiliateSession) {
+            return NextResponse.redirect(new URL("/affiliate/login", request.url));
+        }
+    }
+
+    // User account protection
+    if (pathname === "/account") {
+        const userSession = request.cookies.get("zenixa_session")?.value;
+        if (!userSession) {
+            return NextResponse.redirect(new URL("/account/login", request.url));
+        }
+    }
+
+    return NextResponse.next();
 }
 
 export const config = {
-    matcher: ["/admin/:path*"],
+    matcher: ["/admin/:path*", "/affiliate/dashboard/:path*", "/affiliate/withdraw/:path*", "/account"],
 };

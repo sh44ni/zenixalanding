@@ -2,14 +2,14 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend(process.env.RESEND_API_KEY || "re_hJjX1P6T_JvvLpVpV7BXLmqzPRyydhuXz");
 
 export async function POST(
     req: NextRequest,
-    { params }: { params: Promise<{ id: string }> }
+    context: { params: Promise<{ id: string }> }
 ) {
     try {
-        const { id } = await params;
+        const { id } = await context.params;
 
         const user = await prisma.user.findUnique({
             where: { id },
@@ -31,7 +31,7 @@ export async function POST(
             },
         });
 
-        // Send approval email
+        // Send approval email (don't fail if email fails)
         try {
             await resend.emails.send({
                 from: "Zenixa <noreply@zenixa.pk>",
@@ -49,7 +49,8 @@ export async function POST(
               <div style="background: #0F766E; color: white; padding: 20px; border-radius: 8px; text-align: center; font-size: 24px; font-family: monospace; letter-spacing: 4px; margin: 20px 0;">
                 ${user.referralCode}
               </div>
-              <p style="color: #666;">Share this code with potential customers. When they sign up and make a purchase using your code, you'll earn up to 20% commission!</p>
+              <p style="color: #666;">Share this code with potential customers. When they sign up and make a purchase using your code, you'll earn 20% commission!</p>
+              <p style="color: #666; margin-top: 20px;">Login to your affiliate dashboard: <a href="https://zenixa.pk/affiliate/login" style="color: #0F766E;">zenixa.pk/affiliate/login</a></p>
               <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 30px 0;">
               <p style="color: #999; font-size: 14px;">Welcome to the Zenixa family!</p>
             </div>
@@ -58,13 +59,14 @@ export async function POST(
             });
         } catch (emailError) {
             console.error("Failed to send approval email:", emailError);
+            // Continue even if email fails
         }
 
         return NextResponse.json({ success: true });
     } catch (error) {
         console.error("Approve error:", error);
         return NextResponse.json(
-            { error: "Internal server error" },
+            { error: error instanceof Error ? error.message : "Internal server error" },
             { status: 500 }
         );
     }

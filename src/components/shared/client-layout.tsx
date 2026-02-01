@@ -1,6 +1,7 @@
 "use client";
 
 import { ReactNode } from "react";
+import { usePathname } from "next/navigation";
 import { Navigation } from "@/components/shared/navigation";
 import { Footer } from "@/components/shared/footer";
 import { ContactFormModal } from "@/components/shared/contact-form-modal";
@@ -14,6 +15,18 @@ interface ClientLayoutProps {
 
 function LayoutContent({ children }: { children: ReactNode }) {
     const { isOpen, closeModal, openModal } = useContactModal();
+    const pathname = usePathname();
+
+    // Skip Navigation/Footer on auth, admin, affiliate dashboard, and account routes
+    const isAuthRoute = pathname?.startsWith("/auth") ||
+        pathname?.startsWith("/admin") ||
+        pathname?.startsWith("/affiliate/dashboard") ||
+        pathname?.startsWith("/affiliate/login") ||
+        pathname?.startsWith("/account");
+
+    if (isAuthRoute) {
+        return <>{children}</>;
+    }
 
     return (
         <div className="flex flex-col min-h-screen">
@@ -40,4 +53,3 @@ export function ClientLayout({ children }: ClientLayoutProps) {
         </AuthProvider>
     );
 }
-

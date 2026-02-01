@@ -25,6 +25,11 @@ model User {
   walletBalance      Float     @default(0)
   pendingEarnings    Float     @default(0)
   
+  // Bank details for withdrawals
+  bankName           String?
+  accountNumber      String?
+  accountTitle       String?
+  
   createdAt          DateTime  @default(now())
   updatedAt          DateTime  @updatedAt
   
@@ -32,6 +37,8 @@ model User {
   referralsGiven     Referral[] @relation("Referrer")
   referralReceived   Referral?  @relation("Referred")
   commissions        Commission[]
+  withdrawals        WithdrawalRequest[]
+  orders             Order[]
 }
 
 model Otp {
@@ -52,7 +59,7 @@ model Referral {
   id          String   @id @default(cuid())
   referrerId  String
   referredId  String   @unique
-  status      String   @default("signup") // "signup", "purchased", "completed"
+  status      String   @default("signup") // "signup", "purchased", "in_progress", "completed"
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   
@@ -66,7 +73,7 @@ model Commission {
   id          String    @id @default(cuid())
   userId      String
   amount      Float
-  status      String    @default("pending") // "pending", "clearance", "paid"
+  status      String    @default("pending") // "pending", "available", "withdrawn"
   source      String    // Description of what generated this
   referralId  String?
   createdAt   DateTime  @default(now())
@@ -76,5 +83,43 @@ model Commission {
   user        User      @relation(fields: [userId], references: [id])
 
   @@index([userId])
+  @@index([status])
+}
+
+model WithdrawalRequest {
+  id            String    @id @default(cuid())
+  userId        String
+  amount        Float
+  bankName      String
+  accountNumber String
+  accountTitle  String
+  status        String    @default("pending") // "pending", "processing", "completed", "rejected"
+  createdAt     DateTime  @default(now())
+  processedAt   DateTime?
+  notes         String?
+  
+  user          User      @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([status])
+}
+
+model Order {
+  id            String   @id @default(cuid())
+  userId        String?
+  referralCode  String?
+  name          String
+  email         String
+  phone         String
+  businessName  String?
+  package       String   // "starter", "pro", "enterprise"
+  message       String?
+  status        String   @default("inquiry") // "inquiry", "confirmed", "in_progress", "completed", "cancelled"
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  user          User?    @relation(fields: [userId], references: [id])
+
+  @@index([referralCode])
   @@index([status])
 }

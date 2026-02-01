@@ -2,14 +2,14 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend(process.env.RESEND_API_KEY || "re_hJjX1P6T_JvvLpVpV7BXLmqzPRyydhuXz");
 
 export async function POST(
     req: NextRequest,
-    { params }: { params: Promise<{ id: string }> }
+    context: { params: Promise<{ id: string }> }
 ) {
     try {
-        const { id } = await params;
+        const { id } = await context.params;
 
         const user = await prisma.user.findUnique({
             where: { id },
@@ -30,7 +30,7 @@ export async function POST(
             },
         });
 
-        // Send rejection email
+        // Send rejection email (don't fail if email fails)
         try {
             await resend.emails.send({
                 from: "Zenixa <noreply@zenixa.pk>",
@@ -54,13 +54,14 @@ export async function POST(
             });
         } catch (emailError) {
             console.error("Failed to send rejection email:", emailError);
+            // Continue even if email fails
         }
 
         return NextResponse.json({ success: true });
     } catch (error) {
         console.error("Reject error:", error);
         return NextResponse.json(
-            { error: "Internal server error" },
+            { error: error instanceof Error ? error.message : "Internal server error" },
             { status: 500 }
         );
     }

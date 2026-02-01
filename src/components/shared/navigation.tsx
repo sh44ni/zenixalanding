@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Menu, X, ShoppingBag } from "lucide-react";
+import { Menu, X, ShoppingBag, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface NavigationProps {
@@ -21,6 +21,7 @@ const navLinks = [
 export function Navigation({ onContactClick }: NavigationProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const pathname = usePathname();
 
   // Handle scroll effect
@@ -30,6 +31,21 @@ export function Navigation({ onContactClick }: NavigationProps) {
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Check if user is logged in
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const res = await fetch("/api/auth/me");
+        if (res.ok) {
+          setIsLoggedIn(true);
+        }
+      } catch {
+        setIsLoggedIn(false);
+      }
+    };
+    checkAuth();
   }, []);
 
   // Handle click for contact button
@@ -81,13 +97,27 @@ export function Navigation({ onContactClick }: NavigationProps) {
           <Link href="https://demo.zenixa.pk" target="_blank" className="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">
             Live Demo
           </Link>
-          <Button
-            size="sm"
-            asChild
-            className="bg-gray-900 hover:bg-gray-800 text-white rounded-lg px-5 h-9"
-          >
-            <Link href="/auth">Login</Link>
-          </Button>
+          {isLoggedIn ? (
+            <Button
+              size="sm"
+              variant="outline"
+              asChild
+              className="rounded-lg px-5 h-9"
+            >
+              <Link href="/account" className="flex items-center gap-2">
+                <User className="w-4 h-4" />
+                Account
+              </Link>
+            </Button>
+          ) : (
+            <Button
+              size="sm"
+              asChild
+              className="bg-gray-900 hover:bg-gray-800 text-white rounded-lg px-5 h-9"
+            >
+              <Link href="/account/login">Login</Link>
+            </Button>
+          )}
         </div>
 
         {/* Mobile Menu Toggle */}
@@ -127,12 +157,25 @@ export function Navigation({ onContactClick }: NavigationProps) {
             >
               Live Demo
             </Link>
-            <Button
-              className="w-full bg-gray-900 text-white mt-2"
-              asChild
-            >
-              <Link href="/auth" onClick={() => setIsMobileMenuOpen(false)}>Login</Link>
-            </Button>
+            {isLoggedIn ? (
+              <Button
+                className="w-full"
+                variant="outline"
+                asChild
+              >
+                <Link href="/account" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center justify-center gap-2">
+                  <User className="w-4 h-4" />
+                  My Account
+                </Link>
+              </Button>
+            ) : (
+              <Button
+                className="w-full bg-gray-900 text-white mt-2"
+                asChild
+              >
+                <Link href="/account/login" onClick={() => setIsMobileMenuOpen(false)}>Login</Link>
+              </Button>
+            )}
           </nav>
         </div>
       )}

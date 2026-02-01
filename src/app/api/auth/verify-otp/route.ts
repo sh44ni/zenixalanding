@@ -29,10 +29,12 @@ export async function POST(req: NextRequest) {
         }
 
         // Find the latest unverified OTP for this email
+        console.log("Verifying OTP:", { email: email.toLowerCase(), code, codeType: typeof code });
+
         const otp = await prisma.otp.findFirst({
             where: {
                 email: email.toLowerCase(),
-                code,
+                code: String(code), // Ensure code is string
                 verified: false,
                 expiresAt: { gt: new Date() },
             },
@@ -40,7 +42,17 @@ export async function POST(req: NextRequest) {
             include: { user: true },
         });
 
+        console.log("OTP found:", otp ? { id: otp.id, code: otp.code, expiresAt: otp.expiresAt } : null);
+
         if (!otp) {
+            // Debug: Check what OTPs exist for this email
+            const allOtps = await prisma.otp.findMany({
+                where: { email: email.toLowerCase() },
+                orderBy: { createdAt: "desc" },
+                take: 3,
+            });
+            console.log("All recent OTPs for email:", allOtps.map(o => ({ code: o.code, verified: o.verified, expiresAt: o.expiresAt })));
+
             return NextResponse.json(
                 { error: "Invalid or expired code" },
                 { status: 400 }
