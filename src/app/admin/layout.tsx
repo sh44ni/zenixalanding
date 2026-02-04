@@ -81,15 +81,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <aside className="fixed left-0 top-0 h-screen w-64 bg-gray-900 text-white flex flex-col">
                 {/* Logo */}
                 <div className="p-6 border-b border-gray-800">
-                    <Link href="/admin" className="flex items-center gap-2 text-xl font-bold">
-                        <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary text-white">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
-                                <path d="M3 6h18" />
-                                <path d="M16 10a4 4 0 0 1-8 0" />
-                            </svg>
-                        </div>
-                        Zenixa Admin
+                    <Link href="/admin" className="flex items-center gap-3">
+                        <img
+                            src="/logo_logofordarkbg.svg"
+                            alt="Zenixa"
+                            className="h-8 w-auto"
+                        />
+                        <span className="text-sm font-medium text-gray-400">Admin</span>
                     </Link>
                 </div>
 

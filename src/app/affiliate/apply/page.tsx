@@ -147,11 +147,12 @@ export default function AffiliateApplyPage() {
         <div className="min-h-[100dvh] flex flex-col bg-gradient-to-b from-white to-gray-50/80">
             {/* Header */}
             <header className="p-4 sm:p-6">
-                <Link href="/" className="inline-flex items-center gap-2 text-xl font-bold text-primary hover:opacity-80 transition-opacity">
-                    <svg viewBox="0 0 24 24" className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth={2}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                    </svg>
-                    Zenixa
+                <Link href="/" className="inline-block">
+                    <img
+                        src="/logo_logoforlightbg.svg"
+                        alt="Zenixa"
+                        className="h-8 w-auto hover:opacity-80 transition-opacity"
+                    />
                 </Link>
             </header>
 

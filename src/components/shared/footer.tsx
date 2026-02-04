@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingBag, MapPin, Mail, Phone, ExternalLink } from "lucide-react";
+import { MapPin, Mail, Phone, ExternalLink } from "lucide-react";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -12,13 +12,12 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-12">
           {/* Brand */}
           <div className="space-y-4">
-            <Link href="/" className="flex items-center gap-2">
-              <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-gray-900 text-white">
-                <ShoppingBag className="w-4 h-4" />
-              </div>
-              <span className="text-xl font-bold text-gray-900 tracking-tight">
-                Zenixa
-              </span>
+            <Link href="/" className="flex items-center">
+              <img
+                src="/logo_logoforlightbg.svg"
+                alt="Zenixa"
+                className="h-8 w-auto"
+              />
             </Link>
             <p className="text-sm text-gray-500 leading-relaxed max-w-xs">
               Complete e-commerce solution for Pakistan. One payment, lifetime ownership.

@@ -74,14 +74,12 @@ export default function AffiliateLoginPage() {
             <div className="w-full max-w-md">
                 {/* Logo */}
                 <div className="text-center mb-8">
-                    <Link href="/" className="inline-flex items-center gap-2 text-2xl font-bold text-white mb-4">
-                        <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-primary text-white">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
-                                <path d="M3 6h18" />
-                                <path d="M16 10a4 4 0 0 1-8 0" />
-                            </svg>
-                        </div>
+                    <Link href="/" className="inline-block mb-4">
+                        <img
+                            src="/logo_logofordarkbg.svg"
+                            alt="Zenixa"
+                            className="h-10 w-auto mx-auto"
+                        />
                     </Link>
                     <h1 className="text-2xl font-bold text-white">Affiliate Portal</h1>
                     <p className="text-gray-400 mt-2">Login to manage your referrals & earnings</p>

@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Menu, X, ShoppingBag, User } from "lucide-react";
+import { Menu, X, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 
@@ -57,13 +57,12 @@ export function Navigation() {
     >
       <div className="container-custom flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 group">
-          <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-gray-900 text-white transition-transform group-hover:scale-105">
-            <ShoppingBag className="w-4 h-4" />
-          </div>
-          <span className="text-xl font-bold text-gray-900 tracking-tight">
-            Zenixa
-          </span>
+        <Link href="/" className="flex items-center group">
+          <img
+            src="/logo_logoforlightbg.svg"
+            alt="Zenixa"
+            className="h-8 w-auto transition-transform group-hover:scale-105"
+          />
         </Link>
 
         {/* Desktop Nav */}
