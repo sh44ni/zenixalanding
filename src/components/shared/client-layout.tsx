@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { Navigation } from "@/components/shared/navigation";
 import { Footer } from "@/components/shared/footer";
 import { ContactFormModal } from "@/components/shared/contact-form-modal";
-import { FloatingWhatsApp } from "@/components/shared/floating-whatsapp";
+import { ChatBot } from "@/components/shared/chatbot";
 import { ContactModalProvider, useContactModal } from "@/context/contact-modal-context";
 import { AuthProvider } from "@/context/auth-context";
 
@@ -39,7 +39,7 @@ function LayoutContent({ children }: { children: ReactNode }) {
                 open={isOpen}
                 onOpenChange={(open) => open ? openModal() : closeModal()}
             />
-            <FloatingWhatsApp />
+            <ChatBot />
         </div>
     );
 }
