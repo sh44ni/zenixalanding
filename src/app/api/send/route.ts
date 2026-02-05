@@ -1,9 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
+import { checkRateLimit, RATE_LIMITS } from "@/lib/rate-limit";
 
-const resend = new Resend("re_hJjX1P6T_JvvLpVpV7BXLmqzPRyydhuXz");
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: NextRequest) {
+    // Rate limiting
+    const rateLimitError = checkRateLimit(req, RATE_LIMITS.contact);
+    if (rateLimitError) return rateLimitError;
+
     try {
         const body = await req.json();
         const { name, email, phone, businessName, message } = body;

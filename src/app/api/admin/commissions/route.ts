@@ -1,7 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { requireAdmin } from "@/lib/auth";
 
 export async function POST(req: NextRequest) {
+    // Verify admin authentication
+    const authError = await requireAdmin();
+    if (authError) return authError;
+
     try {
         const body = await req.json();
         const { userId, amount, source, referralId } = body;
@@ -49,3 +54,4 @@ export async function POST(req: NextRequest) {
         );
     }
 }
+

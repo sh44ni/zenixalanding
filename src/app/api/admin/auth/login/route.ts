@@ -1,7 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
+import { createAdminToken } from "@/lib/auth";
+import { checkRateLimit, RATE_LIMITS } from "@/lib/rate-limit";
 
 export async function POST(req: NextRequest) {
+    // Rate limit login attempts
+    const rateLimitError = checkRateLimit(req, RATE_LIMITS.adminLogin);
+    if (rateLimitError) return rateLimitError;
+
     try {
         const { email, password } = await req.json();
 
@@ -9,6 +15,7 @@ export async function POST(req: NextRequest) {
         const adminPassword = process.env.ADMIN_PASSWORD;
 
         if (!adminEmail || !adminPassword) {
+            console.error("Admin credentials not configured in environment");
             return NextResponse.json(
                 { error: "Admin credentials not configured" },
                 { status: 500 }
@@ -16,14 +23,16 @@ export async function POST(req: NextRequest) {
         }
 
         if (email !== adminEmail || password !== adminPassword) {
+            // Add small delay to prevent timing attacks
+            await new Promise(resolve => setTimeout(resolve, 500));
             return NextResponse.json(
                 { error: "Invalid credentials" },
                 { status: 401 }
             );
         }
 
-        // Create admin session token (simple hash for demo)
-        const sessionToken = Buffer.from(`${email}:${Date.now()}`).toString("base64");
+        // Create signed JWT session token
+        const sessionToken = await createAdminToken(email);
 
         // Set admin session cookie
         const cookieStore = await cookies();

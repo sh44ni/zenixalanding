@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { Resend } from "resend";
+import { checkRateLimit, RATE_LIMITS } from "@/lib/rate-limit";
 
-const resend = new Resend("re_hJjX1P6T_JvvLpVpV7BXLmqzPRyydhuXz");
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 // Generate a 6-digit OTP
 function generateOTP(): string {
@@ -10,6 +11,10 @@ function generateOTP(): string {
 }
 
 export async function POST(req: NextRequest) {
+    // IP-based rate limiting (in addition to email-based limiting below)
+    const rateLimitError = checkRateLimit(req, RATE_LIMITS.otp);
+    if (rateLimitError) return rateLimitError;
+
     try {
         const body = await req.json();
         const { email } = body;

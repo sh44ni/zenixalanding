@@ -1,13 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { Resend } from "resend";
+import { requireAdmin } from "@/lib/auth";
 
-const resend = new Resend(process.env.RESEND_API_KEY || "re_hJjX1P6T_JvvLpVpV7BXLmqzPRyydhuXz");
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(
     req: NextRequest,
     context: { params: Promise<{ id: string }> }
 ) {
+    // Verify admin authentication
+    const authError = await requireAdmin();
+    if (authError) return authError;
+
     try {
         const { id } = await context.params;
 

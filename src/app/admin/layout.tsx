@@ -13,7 +13,8 @@ import {
     LogOut,
     Loader2,
     ShoppingBag,
-    Wallet
+    Wallet,
+    FileText
 } from "lucide-react";
 
 const navItems = [
@@ -23,6 +24,7 @@ const navItems = [
     { label: "Affiliates", href: "/admin/affiliates", icon: Users },
     { label: "Withdrawals", href: "/admin/withdrawals", icon: Wallet },
     { label: "Commissions", href: "/admin/commissions", icon: DollarSign },
+    { label: "Blogs", href: "/admin/blogs", icon: FileText },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {

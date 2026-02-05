@@ -1,6 +1,7 @@
 "use server";
 
 import { NextRequest, NextResponse } from "next/server";
+import { checkRateLimit, RATE_LIMITS } from "@/lib/rate-limit";
 
 const systemPrompt = `You are Zenixa's customer support assistant. Zenixa provides complete e-commerce store solutions for Pakistani businesses.
 
@@ -127,6 +128,9 @@ interface Message {
 }
 
 export async function POST(request: NextRequest) {
+    // Rate limiting
+    const rateLimitError = checkRateLimit(request, RATE_LIMITS.chat);
+    if (rateLimitError) return rateLimitError;
     try {
         const { messages } = await request.json() as { messages: Message[] };
 
