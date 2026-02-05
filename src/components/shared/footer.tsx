@@ -77,6 +77,11 @@ export function Footer() {
                   Live Demo
                 </a>
               </li>
+              <li>
+                <Link href="/affiliate" className="text-sm text-gray-500 hover:text-gray-900 transition-colors">
+                  Affiliate Program
+                </Link>
+              </li>
             </ul>
           </div>
 

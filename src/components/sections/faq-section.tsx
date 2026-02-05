@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { HelpCircle, MessageCircle } from "lucide-react";
+import Link from "next/link";
 
 interface FaqSectionProps {
   onContactClick: () => void;
@@ -18,37 +19,42 @@ const faqs = [
   {
     question: "What exactly is included in the PKR 45,000 package?",
     answer:
-      "The package includes a complete, ready-to-use e-commerce store with a premium responsive theme, unlimited product listings, payment gateway integrations (JazzCash, EasyPaisa, COD), order management system, customer accounts, inventory tracking, SEO optimization, admin dashboard with analytics, WhatsApp integration, free SSL certificate, 1-year hosting, and 30-day post-launch support.",
+      "The package includes a complete, ready-to-use e-commerce store with a premium responsive theme, unlimited product listings, payment gateway integrations (JazzCash, EasyPaisa, Stripe, COD, bank transfer), order management system, customer accounts, inventory tracking, SEO optimization, admin dashboard with analytics, WhatsApp integration, free SSL certificate, 1-year hosting, 1-year .pk domain, and free lifetime support on existing features.",
   },
   {
     question: "Are there really no monthly fees?",
     answer:
-      "Absolutely! The PKR 45,000 is a one-time payment that covers everything. There are no monthly subscription fees, no transaction fees from our side, and no hidden charges. The only recurring cost would be your domain renewal (around PKR 2,000-3,000/year) after the first year, and hosting renewal after the first year if you choose to continue with us.",
+      "Absolutely! The PKR 45,000 is a one-time payment that covers everything. There are no monthly subscription fees, no transaction fees from our side, and no hidden charges. After the first year, renewal is just PKR 5,000/year for domain + hosting. That's it.",
   },
   {
-    question: "How quickly can my store be ready?",
+    question: "How fast can my store be ready?",
     answer:
-      "We guarantee your store will be live within 24 hours of receiving all your requirements (logo, products, business details). For stores with a large number of products (100+), it may take 2-3 days for complete product setup, but the core store will be functional within 24 hours.",
+      "72 hours after you send us your product content and branding. We handle everything — domain registration, hosting setup, store configuration, and payment integration. You just provide your products and logo, we do the rest.",
   },
   {
-    question: "Do I own the store completely?",
+    question: "What payment gateways do you support?",
     answer:
-      "Yes, you have full ownership. The store, its design, all data, and code belong to you. You're not locked into any platform. After the first year, you can even move your store to your own hosting if you prefer, and we'll assist with the migration.",
+      "We integrate whatever your business needs — COD (Cash on Delivery), bank transfers, JazzCash, EasyPaisa, Stripe, and more. All gateway setup is included in the PKR 45,000 package at no extra charge. Tell us what you need and we'll set it up.",
   },
   {
-    question: "What payment methods can my customers use?",
+    question: "Do I need technical knowledge?",
     answer:
-      "We integrate all popular Pakistani payment methods including JazzCash, EasyPaisa, bank transfers, and Cash on Delivery (COD). We can also set up international payment gateways like Stripe or PayPal if you plan to sell internationally.",
+      "No. We handle the entire setup and provide a user-friendly admin panel. You can add/edit products, manage orders, update content, and view analytics — all without any technical knowledge. We also provide training to get you started.",
   },
   {
-    question: "Can I manage the store myself after launch?",
+    question: "Do I get support after setup?",
     answer:
-      "Absolutely! We provide a user-friendly admin dashboard and a complete training session. You can add/edit products, manage orders, update content, and view analytics - all without any technical knowledge. Most of our clients manage their stores independently within the first week.",
+      "Yes. You get free support on all existing features forever. No ticket limits, no expiry. If you want new features or custom development work, that's quoted separately. But for anything that's already built — we support it for free, forever.",
   },
   {
-    question: "What if I need help after the 30-day support period?",
+    question: "What's the refund policy?",
     answer:
-      "We offer extended support packages starting from PKR 15,000 for 6 months. However, many routine questions can be handled through our WhatsApp support. For urgent issues, we're always available to help at reasonable hourly rates.",
+      "You can get a full refund within 2 hours of your initial 50% payment. After that, once work begins or your domain is registered, refunds aren't available for change of mind (domain registrations are irreversible). But if we can't deliver what was promised or can't fix a specific issue — you get your money back. Full details on our Refund Policy page.",
+  },
+  {
+    question: "What about renewal costs?",
+    answer:
+      "After the first year, renewal is just PKR 5,000/year. That covers domain + hosting renewal. No other fees. Compare that to Shopify's PKR 42,000+/year and you'll see why Zenixa makes sense for Pakistani businesses.",
   },
   {
     question: "Can I upgrade or add features later?",
@@ -59,11 +65,6 @@ const faqs = [
     question: "How does shipping integration work?",
     answer:
       "We can integrate your store with popular Pakistani courier services like Leopards, TCS, M&P, and others. This allows automatic tracking updates and can even calculate shipping costs based on destination. Integration fees may vary by courier.",
-  },
-  {
-    question: "What if I'm not satisfied with the store?",
-    answer:
-      "We offer a 100% money-back guarantee if you're not satisfied with the initial store setup. Simply let us know within 7 days of delivery, and we'll provide a full refund. We're confident you'll love your store, but we want you to feel secure in your investment.",
   },
 ];
 
@@ -124,19 +125,15 @@ export function FaqSection({ onContactClick }: FaqSectionProps) {
                 </p>
                 <div className="flex flex-col gap-3">
                   <Button onClick={onContactClick} className="w-full bg-gray-900 hover:bg-gray-800 text-white">Contact Us</Button>
-                  <Button
-                    variant="outline"
-                    onClick={() => {
-                      const message = encodeURIComponent(
-                        "Hi! I have a question about Zenixa e-commerce platform."
-                      );
-                      window.open(`https://wa.me/923000000000?text=${message}`, "_blank");
-                    }}
-                    leftIcon={<MessageCircle className="w-4 h-4" />}
-                    className="w-full border-[#25D366] text-[#25D366] hover:bg-green-50"
-                  >
-                    WhatsApp Us
-                  </Button>
+                  <Link href="https://wa.me/923040260023" target="_blank">
+                    <Button
+                      variant="outline"
+                      className="w-full border-[#25D366] text-[#25D366] hover:bg-green-50"
+                    >
+                      <MessageCircle className="w-4 h-4 mr-2" />
+                      WhatsApp Us
+                    </Button>
+                  </Link>
                 </div>
               </div>
             </AnimatedSection>
