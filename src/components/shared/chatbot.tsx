@@ -150,7 +150,7 @@ export function ChatBot() {
                                 />
                             </div>
                             <h4 className="text-lg font-semibold text-gray-900 mb-1">
-                                Hi! I'm Zchappie 👋
+                                Hi! I&apos;m Zchappie 👋
                             </h4>
                             <p className="text-sm text-gray-500 mb-6 text-center">
                                 Choose how you&apos;d like to connect with us

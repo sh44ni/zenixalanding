@@ -11,7 +11,6 @@ import {
     ArrowRight,
     Headphones,
     Clock,
-    CheckCircle,
     MessageSquare,
     Shield,
     Zap,

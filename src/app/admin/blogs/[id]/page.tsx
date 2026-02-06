@@ -29,31 +29,31 @@ export default function EditBlogPage({ params }: PageProps) {
     });
 
     useEffect(() => {
+        const fetchBlog = async () => {
+            try {
+                const res = await fetch(`/api/admin/blogs/${id}`);
+                if (res.ok) {
+                    const data = await res.json();
+                    setFormData({
+                        title: data.blog.title,
+                        slug: data.blog.slug,
+                        excerpt: data.blog.excerpt,
+                        content: data.blog.content,
+                        coverImage: data.blog.coverImage || "",
+                        published: data.blog.published,
+                    });
+                } else {
+                    setError("Blog not found");
+                }
+            } catch {
+                setError("Failed to fetch blog");
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
         fetchBlog();
     }, [id]);
-
-    const fetchBlog = async () => {
-        try {
-            const res = await fetch(`/api/admin/blogs/${id}`);
-            if (res.ok) {
-                const data = await res.json();
-                setFormData({
-                    title: data.blog.title,
-                    slug: data.blog.slug,
-                    excerpt: data.blog.excerpt,
-                    content: data.blog.content,
-                    coverImage: data.blog.coverImage || "",
-                    published: data.blog.published,
-                });
-            } else {
-                setError("Blog not found");
-            }
-        } catch {
-            setError("Failed to fetch blog");
-        } finally {
-            setIsLoading(false);
-        }
-    };
 
     const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];

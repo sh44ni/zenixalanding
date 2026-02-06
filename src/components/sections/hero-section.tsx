@@ -6,10 +6,6 @@ import { Button } from "@/components/ui/button";
 import { AnimatedSection } from "@/components/shared/animated-section";
 import { ArrowRight, Check } from "lucide-react";
 
-interface HeroSectionProps {
-  onGetStarted: () => void;
-}
-
 const features = [
   "Live in 72 Hours",
   "No Monthly Fees",
@@ -17,7 +13,7 @@ const features = [
   "Free Lifetime Support",
 ];
 
-export function HeroSection({ onGetStarted }: HeroSectionProps) {
+export function HeroSection() {
   return (
     <section className="relative bg-gradient-to-br from-gray-50 via-white to-accent-50/30 overflow-hidden">
       {/* Subtle pattern */}

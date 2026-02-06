@@ -3,7 +3,7 @@
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Save, Loader2, Upload, X, Image as ImageIcon } from "lucide-react";
+import { ArrowLeft, Save, Loader2, X, Image as ImageIcon } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 

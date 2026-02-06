@@ -16,7 +16,7 @@ export default function HomePage() {
 
   return (
     <>
-      <HeroSection onGetStarted={openModal} />
+      <HeroSection />
       <PainPointSection />
       <HowItWorksSection />
       <FeaturesSection />

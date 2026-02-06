@@ -4,7 +4,6 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Pencil, Trash2, Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 interface Blog {
     id: string;
@@ -23,7 +22,6 @@ interface BlogsTableProps {
 export function BlogsTable({ blogs: initialBlogs }: BlogsTableProps) {
     const [blogs, setBlogs] = useState(initialBlogs);
     const [isLoading, setIsLoading] = useState<string | null>(null);
-    const router = useRouter();
 
     const togglePublish = async (id: string, currentStatus: boolean) => {
         setIsLoading(id);
@@ -99,8 +97,8 @@ export function BlogsTable({ blogs: initialBlogs }: BlogsTableProps) {
                             <td className="px-6 py-4">
                                 <span
                                     className={`px-2.5 py-1 rounded-full text-xs font-medium ${blog.published
-                                            ? "bg-green-100 text-green-700"
-                                            : "bg-gray-100 text-gray-600"
+                                        ? "bg-green-100 text-green-700"
+                                        : "bg-gray-100 text-gray-600"
                                         }`}
                                 >
                                     {blog.published ? "Published" : "Draft"}

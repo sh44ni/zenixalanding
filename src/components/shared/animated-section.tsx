@@ -35,7 +35,8 @@ export function AnimatedSection({
     <div
       ref={ref}
       className={cn(
-        "opacity-0",
+        // Forcing visibility debug: remove opacity-0 to see if content renders
+        // !isVisible && "opacity-0",
         isVisible && animationClasses[animation],
         className
       )}
