@@ -1,90 +1,61 @@
 "use client";
 
+import Link from "next/link";
 import { AnimatedSection } from "@/components/shared/animated-section";
 import { Button } from "@/components/ui/button";
 import {
-  MessageSquare,
-  Palette,
+  Package,
+  Settings,
   Rocket,
   ArrowRight,
-  Clock,
-  CheckCircle2,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
-
-interface HowItWorksSectionProps {
-  onGetStarted: () => void;
-}
 
 const steps = [
   {
-    number: "01",
-    icon: MessageSquare,
-    title: "Tell Us Your Vision",
+    number: "1",
+    icon: Package,
+    title: "Send Us Your Products",
     description:
-      "Share your business details, products, and design preferences. We'll understand your brand and goals.",
-    features: [
-      "Free consultation call",
-      "Business requirements review",
-      "Design preferences discussion",
-    ],
-    duration: "1-2 hours",
-    color: "primary",
+      "Share your product photos, descriptions, and prices. If you're already selling on Daraz or Instagram, we'll pull everything from there. Already on Shopify? We'll recreate your exact store.",
   },
   {
-    number: "02",
-    icon: Palette,
-    title: "We Build Your Store",
+    number: "2",
+    icon: Settings,
+    title: "We Build Everything",
     description:
-      "Our team sets up your complete e-commerce store with your branding, products, and payment integrations.",
-    features: [
-      "Custom theme setup",
-      "Product upload assistance",
-      "Payment gateway configuration",
-    ],
-    duration: "12-24 hours",
-    color: "accent",
+      "We set up your complete store — design, products, categories, payment gateways (JazzCash, EasyPaisa, Stripe, COD), your .pk domain, hosting, admin panel. You don't touch a line of code.",
   },
   {
-    number: "03",
+    number: "3",
     icon: Rocket,
-    title: "Launch & Grow",
+    title: "Your Store Goes Live",
     description:
-      "Your store goes live! We provide training and support to ensure you can manage and grow your business.",
-    features: [
-      "Admin training session",
-      "Launch support",
-      "30-day assistance included",
-    ],
-    duration: "Same day",
-    color: "secondary",
+      "Within 72 hours, your store is live at yourbrand.pk. Start sharing the link, accepting orders, and building your brand. Free support on all existing features — forever.",
   },
 ];
 
-export function HowItWorksSection({ onGetStarted }: HowItWorksSectionProps) {
+export function HowItWorksSection() {
   return (
-    <section id="how-it-works" className="section-padding bg-slate-50">
+    <section id="how-it-works" className="section-padding bg-white">
       <div className="container-custom">
         {/* Section Header */}
         <AnimatedSection className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium mb-6">
-            <Clock className="w-4 h-4" />
-            Simple 3-Step Process
-          </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
-            From Idea to{" "}
-            <span className="text-primary">Live Store</span> in 24 Hours
+          <span className="inline-block px-4 py-1.5 bg-accent-100 text-accent-700 rounded-full text-sm font-medium mb-4">
+            Simple Process
+          </span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+            3 Steps. 72 Hours.{" "}
+            <span className="text-accent-500">Done.</span>
           </h2>
-          <p className="text-lg text-slate-600">
-            We&apos;ve simplified the process so you can focus on what matters most
-            - running your business.
+          <p className="text-lg text-gray-600">
+            We handle everything. You just provide products and branding.
           </p>
         </AnimatedSection>
 
-        {/* Steps Timeline */}
+        {/* Steps */}
         <div className="relative max-w-5xl mx-auto">
-          {/* Connection Line - Hidden on Mobile */}
-          <div className="hidden lg:block absolute top-24 left-[calc(16.67%-1px)] right-[calc(16.67%-1px)] h-0.5 bg-gradient-to-r from-primary via-accent to-secondary" />
+          {/* Connection Line - Desktop only */}
+          <div className="hidden lg:block absolute top-[4.5rem] left-[12%] right-[12%] h-0.5 bg-gradient-to-r from-accent-200 via-accent-400 to-accent-200" />
 
           <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
             {steps.map((step, index) => (
@@ -93,73 +64,31 @@ export function HowItWorksSection({ onGetStarted }: HowItWorksSectionProps) {
                 delay={index * 200}
                 className="relative"
               >
-                <div className="bg-white rounded-2xl p-8 shadow-lg border border-slate-100 hover:shadow-xl transition-shadow duration-300 h-full">
-                  {/* Step Number Badge */}
-                  <div
-                    className={cn(
-                      "absolute -top-4 left-8 w-12 h-12 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-lg",
-                      step.color === "primary" && "bg-primary",
-                      step.color === "accent" && "bg-accent",
-                      step.color === "secondary" && "bg-secondary"
-                    )}
-                  >
+                <div className="bg-white rounded-2xl p-8 border border-gray-100 hover:border-accent-200 hover:shadow-lg transition-all duration-300 h-full flex flex-col">
+                  {/* Step Number */}
+                  <div className="w-14 h-14 rounded-2xl bg-accent-500 flex items-center justify-center text-white font-bold text-xl shadow-lg mb-6 relative z-10">
                     {step.number}
                   </div>
 
                   {/* Icon */}
-                  <div
-                    className={cn(
-                      "w-16 h-16 rounded-2xl flex items-center justify-center mt-6 mb-6",
-                      step.color === "primary" && "bg-primary/10",
-                      step.color === "accent" && "bg-accent/10",
-                      step.color === "secondary" && "bg-secondary/10"
-                    )}
-                  >
-                    <step.icon
-                      className={cn(
-                        "w-8 h-8",
-                        step.color === "primary" && "text-primary",
-                        step.color === "accent" && "text-accent",
-                        step.color === "secondary" && "text-secondary"
-                      )}
-                    />
-                  </div>
-
-                  {/* Duration Badge */}
-                  <div className="inline-flex items-center gap-1 px-3 py-1 bg-slate-100 rounded-full text-xs font-medium text-slate-600 mb-4">
-                    <Clock className="w-3 h-3" />
-                    {step.duration}
+                  <div className="w-12 h-12 rounded-xl bg-gray-100 flex items-center justify-center mb-4">
+                    <step.icon className="w-6 h-6 text-gray-600" />
                   </div>
 
                   {/* Content */}
-                  <h3 className="text-xl font-bold text-slate-900 mb-3">
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">
                     {step.title}
                   </h3>
-                  <p className="text-slate-600 mb-6">{step.description}</p>
-
-                  {/* Features List */}
-                  <ul className="space-y-2">
-                    {step.features.map((feature, i) => (
-                      <li key={i} className="flex items-center gap-2 text-sm text-slate-600">
-                        <CheckCircle2
-                          className={cn(
-                            "w-4 h-4",
-                            step.color === "primary" && "text-primary",
-                            step.color === "accent" && "text-accent",
-                            step.color === "secondary" && "text-secondary"
-                          )}
-                        />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
+                  <p className="text-gray-600 leading-relaxed flex-grow">
+                    {step.description}
+                  </p>
                 </div>
 
-                {/* Arrow - Hidden on Mobile */}
+                {/* Arrow connector on desktop */}
                 {index < steps.length - 1 && (
-                  <div className="hidden lg:flex absolute top-24 -right-6 w-12 h-12 items-center justify-center z-10">
-                    <div className="w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center">
-                      <ArrowRight className="w-4 h-4 text-slate-400" />
+                  <div className="hidden lg:flex absolute top-[4.5rem] -right-6 w-12 h-12 items-center justify-center z-20">
+                    <div className="w-8 h-8 bg-white rounded-full shadow-sm border border-gray-200 flex items-center justify-center">
+                      <ArrowRight className="w-4 h-4 text-accent-500" />
                     </div>
                   </div>
                 )}
@@ -170,18 +99,18 @@ export function HowItWorksSection({ onGetStarted }: HowItWorksSectionProps) {
 
         {/* CTA */}
         <AnimatedSection delay={600} className="text-center mt-16">
-          <div className="inline-flex flex-col sm:flex-row items-center gap-4">
+          <Link href="https://wa.me/923040260023" target="_blank">
             <Button
               size="lg"
-              onClick={onGetStarted}
-              rightIcon={<ArrowRight className="w-4 h-4" />}
+              className="bg-[#25D366] hover:bg-[#20bd5a] text-white px-8 py-6 text-base font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all"
             >
               Start Your Store Today
+              <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
-            <p className="text-sm text-slate-500">
-              Free consultation included
-            </p>
-          </div>
+          </Link>
+          <p className="text-sm text-gray-500 mt-4">
+            Free consultation included • Reply within 1 hour
+          </p>
         </AnimatedSection>
       </div>
     </section>

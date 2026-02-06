@@ -14,9 +14,9 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://zenixa.pk"),
-  title: "Zenixa - Launch Your Online Store in 24 Hours | E-commerce Solution Pakistan",
+  title: "Zenixa - Your Online Store Live in 72 Hours | No Monthly Fees",
   description:
-    "Complete e-commerce solution for Pakistani businesses. One payment, no monthly fees. Launch your professional online store in just 24 hours with Zenixa by Projekts Vision.",
+    "Complete e-commerce solution for Pakistani businesses. PKR 45,000 one-time, no monthly fees ever. Live in 72 hours with .pk domain, hosting, JazzCash, EasyPaisa, Stripe included.",
   keywords: [
     "e-commerce Pakistan",
     "online store Pakistan",
@@ -42,9 +42,9 @@ export const metadata: Metadata = {
     locale: "en_PK",
     url: "https://zenixa.pk",
     siteName: "Zenixa",
-    title: "Zenixa - Launch Your Online Store in 24 Hours",
+    title: "Zenixa - Your Online Store Live in 72 Hours | No Monthly Fees",
     description:
-      "Complete e-commerce solution for Pakistani businesses. One payment, no monthly fees.",
+      "Complete e-commerce solution for Pakistani businesses. PKR 45,000 one-time, no monthly fees ever.",
     images: [
       {
         url: "/og-image.png",
@@ -56,9 +56,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Zenixa - Launch Your Online Store in 24 Hours",
+    title: "Zenixa - Your Online Store Live in 72 Hours | No Monthly Fees",
     description:
-      "Complete e-commerce solution for Pakistani businesses. One payment, no monthly fees.",
+      "Complete e-commerce solution for Pakistani businesses. PKR 45,000 one-time, no monthly fees ever.",
     images: ["/og-image.png"],
     creator: "@projektspk",
   },

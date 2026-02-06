@@ -121,7 +121,7 @@ export function ChatBot() {
                                 />
                             </div>
                             <div>
-                                <h3 className="font-semibold text-sm">Zenixa Support</h3>
+                                <h3 className="font-semibold text-sm">Zchappie</h3>
                                 <p className="text-xs text-gray-300">
                                     {chatStarted ? "Ask me anything" : "How can we help?"}
                                 </p>
@@ -150,7 +150,7 @@ export function ChatBot() {
                                 />
                             </div>
                             <h4 className="text-lg font-semibold text-gray-900 mb-1">
-                                Welcome to Zenixa!
+                                Hi! I'm Zchappie 👋
                             </h4>
                             <p className="text-sm text-gray-500 mb-6 text-center">
                                 Choose how you&apos;d like to connect with us
@@ -204,7 +204,7 @@ export function ChatBot() {
                                             />
                                         </div>
                                         <p className="text-gray-500 text-sm">
-                                            Hi! I&apos;m Zenixa&apos;s AI assistant.
+                                            Hi! I&apos;m Zchappie, Zenixa&apos;s AI assistant.
                                         </p>
                                         <p className="text-gray-400 text-xs mt-1">
                                             Ask me about our e-commerce solutions.
@@ -314,7 +314,7 @@ export function ChatBot() {
                         `}
                     >
                         <span className="text-sm font-medium whitespace-nowrap">
-                            Chat with Zenixa ✨
+                            Chat with Zchappie ✨
                         </span>
                         {/* Mobile minimize button */}
                         <button

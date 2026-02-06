@@ -4,127 +4,110 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { AnimatedSection } from "@/components/shared/animated-section";
-import { ArrowRight, Zap, Banknote, Globe, Shield } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 
 interface HeroSectionProps {
   onGetStarted: () => void;
 }
 
-const trustBadges = [
-  { icon: Zap, text: "Live in 72 Hours" },
-  { icon: Banknote, text: "No Monthly Fees" },
-  { icon: Globe, text: ".PK Domain Included" },
-  { icon: Shield, text: "Free Lifetime Support" },
+const features = [
+  "Live in 72 Hours",
+  "No Monthly Fees",
+  ".PK Domain Included",
+  "Free Lifetime Support",
 ];
 
 export function HeroSection({ onGetStarted }: HeroSectionProps) {
   return (
-    <section className="relative min-h-[90vh] flex items-center bg-white">
-      {/* Subtle grid background */}
-      <div className="absolute inset-0 bg-grid" />
+    <section className="relative bg-gradient-to-br from-gray-50 via-white to-accent-50/30 overflow-hidden">
+      {/* Subtle pattern */}
+      <div className="absolute inset-0 bg-grid opacity-40" />
 
-      <div className="container-custom relative z-10 pt-12 lg:pt-20 pb-16 lg:pb-24">
-        <div className="max-w-4xl">
-          {/* Small tag */}
-          <AnimatedSection animation="fade-in" delay={0}>
-            <p className="text-sm font-medium text-gray-500 mb-4 tracking-wide uppercase">
-              E-commerce Platform for Pakistan
-            </p>
-          </AnimatedSection>
+      <div className="container-custom relative z-10 py-12 lg:py-16">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          {/* Left Content */}
+          <div className="max-w-lg">
+            {/* Badge */}
+            <AnimatedSection animation="fade-in" delay={0}>
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white border border-gray-200 rounded-full text-xs font-medium text-gray-600 shadow-sm mb-4">
+                <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                For Daraz, Instagram & Shopify sellers
+              </div>
+            </AnimatedSection>
 
-          {/* Main headline */}
-          <AnimatedSection animation="fade-in" delay={100}>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-[1.1] mb-4 tracking-tight">
-              Go Online in 72 Hours.
-              <br />
-              <span className="text-gray-400">No Monthly Fees. Ever.</span>
-            </h1>
-          </AnimatedSection>
+            {/* Main headline */}
+            <AnimatedSection animation="fade-in" delay={100}>
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 leading-[1.15] mb-3 tracking-tight">
+                Your Own Store.
+                <br />
+                <span className="text-accent-500">Live in 72 Hours.</span>
+              </h1>
+            </AnimatedSection>
 
-          {/* Subheadline */}
-          <AnimatedSection animation="fade-in" delay={200}>
-            <p className="text-lg sm:text-xl text-gray-600 mb-6 max-w-2xl leading-relaxed">
-              Complete e-commerce store with .pk domain and hosting included.
-              <span className="block mt-2 font-semibold text-gray-900">
-                PKR 45,000 one-time • Renew for just PKR 5,000/year
-              </span>
-            </p>
-          </AnimatedSection>
+            {/* Subheadline */}
+            <AnimatedSection animation="fade-in" delay={200}>
+              <p className="text-base text-gray-600 mb-4 leading-relaxed">
+                Stop paying monthly fees. Stop losing 30% to Daraz.
+                We build your complete e-commerce store — ready to accept orders.
+              </p>
+              <p className="text-lg font-semibold text-gray-900 mb-5">
+                PKR 45,000 one-time • Then just PKR 5,000/year
+              </p>
+            </AnimatedSection>
 
-          {/* Trust Badges */}
-          <AnimatedSection animation="fade-in" delay={300}>
-            <div className="flex flex-wrap gap-2 mb-8">
-              {trustBadges.map((badge) => (
-                <div
-                  key={badge.text}
-                  className="flex items-center gap-2 px-3 py-1.5 bg-gray-50 border border-gray-200 rounded-full text-sm text-gray-700"
-                >
-                  <badge.icon className="w-4 h-4 text-gray-500" />
-                  {badge.text}
-                </div>
-              ))}
-            </div>
-          </AnimatedSection>
+            {/* Features list */}
+            <AnimatedSection animation="fade-in" delay={250}>
+              <div className="grid grid-cols-2 gap-2 mb-6">
+                {features.map((feature) => (
+                  <div key={feature} className="flex items-center gap-2 text-sm text-gray-700">
+                    <Check className="w-4 h-4 text-accent-500 flex-shrink-0" />
+                    {feature}
+                  </div>
+                ))}
+              </div>
+            </AnimatedSection>
 
-          {/* CTA Buttons */}
-          <AnimatedSection animation="fade-in" delay={400}>
-            <div className="flex flex-col sm:flex-row gap-3 mb-8">
-              <Link href="https://wa.me/923040260023" target="_blank">
-                <Button
-                  size="lg"
-                  className="bg-[#25D366] hover:bg-[#20bd5a] text-white px-8 py-6 text-base font-semibold rounded-lg w-full sm:w-auto"
-                >
-                  WhatsApp Us
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
-              </Link>
-              <Link href="https://demo.zenixa.pk" target="_blank">
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-gray-300 hover:bg-gray-50 text-gray-700 px-8 py-6 text-base font-medium rounded-lg w-full sm:w-auto"
-                >
-                  See Live Demo
-                </Button>
-              </Link>
-            </div>
-          </AnimatedSection>
+            {/* CTA Buttons */}
+            <AnimatedSection animation="fade-in" delay={300}>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Link href="https://wa.me/923040260023" target="_blank">
+                  <Button
+                    size="lg"
+                    className="bg-[#25D366] hover:bg-[#20bd5a] text-white px-6 py-5 text-sm font-semibold rounded-lg w-full sm:w-auto shadow-lg hover:shadow-xl transition-all hover:-translate-y-0.5"
+                  >
+                    WhatsApp Us
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
+                </Link>
+                <Link href="https://demo.zenixa.pk" target="_blank">
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="border-gray-300 hover:bg-gray-50 text-gray-700 px-6 py-5 text-sm font-medium rounded-lg w-full sm:w-auto"
+                  >
+                    See Live Demo
+                  </Button>
+                </Link>
+              </div>
+            </AnimatedSection>
+          </div>
 
-          {/* Key points */}
-          <AnimatedSection animation="fade-in" delay={500}>
-            <div className="flex flex-wrap gap-x-8 gap-y-3 text-sm text-gray-500">
-              <span className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 bg-green-500 rounded-full" />
-                No monthly subscriptions
-              </span>
-              <span className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 bg-green-500 rounded-full" />
-                JazzCash, EasyPaisa, Stripe included
-              </span>
-              <span className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 bg-green-500 rounded-full" />
-                72-hour delivery
-              </span>
+          {/* Right: Zchappie */}
+          <AnimatedSection animation="fade-in" delay={200} className="flex justify-center lg:justify-end">
+            <div className="relative">
+              {/* Glow effect behind Zchappie */}
+              <div className="absolute inset-0 bg-accent-400/20 blur-3xl rounded-full scale-75" />
+              <Image
+                src="/zchappie/welcoming.png"
+                alt="Zchappie - Your E-commerce Assistant"
+                width={400}
+                height={400}
+                className="relative w-56 h-56 sm:w-72 sm:h-72 lg:w-80 lg:h-80 object-contain drop-shadow-xl"
+                priority
+              />
             </div>
           </AnimatedSection>
         </div>
-
-        {/* Clean product preview */}
-        <AnimatedSection animation="fade-in" delay={600} className="mt-10 lg:mt-14">
-          <div className="relative rounded-xl border border-gray-200 bg-white shadow-lg overflow-hidden">
-            <Image
-              src="/screenshots/shop-page.png"
-              alt="Zenixa Store Preview"
-              width={1200}
-              height={675}
-              className="w-full h-auto"
-              priority
-            />
-          </div>
-          <p className="text-center text-sm text-gray-400 mt-4">
-            Your store will look this professional — ready in 72 hours
-          </p>
-        </AnimatedSection>
       </div>
     </section>
   );

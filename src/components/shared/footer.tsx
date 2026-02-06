@@ -20,7 +20,7 @@ export function Footer() {
               />
             </Link>
             <p className="text-sm text-gray-500 leading-relaxed max-w-xs">
-              Complete e-commerce solution for Pakistan. One payment, lifetime ownership.
+              Complete e-commerce solution for Pakistan. One payment. No monthly fees.
             </p>
             <div className="flex items-center gap-3 pt-2">
               <a

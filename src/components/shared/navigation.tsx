@@ -15,10 +15,13 @@ const navLinks = [
   { label: "Pricing", href: "/pricing" },
   { label: "Blog", href: "/blog" },
   { label: "About", href: "/about" },
-  { label: "Affiliate", href: "/affiliate" },
 ];
 
-export function Navigation() {
+interface NavigationProps {
+  hasAnnouncement?: boolean;
+}
+
+export function Navigation({ hasAnnouncement = false }: NavigationProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -52,8 +55,9 @@ export function Navigation() {
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        isScrolled ? "bg-white/80 backdrop-blur-md border-b border-gray-100 py-3" : "bg-transparent py-5"
+        "fixed left-0 right-0 z-50 transition-all duration-300",
+        hasAnnouncement ? "top-9" : "top-0",
+        isScrolled ? "bg-white/95 backdrop-blur-md border-b border-gray-100 py-3" : "bg-white/80 backdrop-blur-sm py-4"
       )}
     >
       <div className="container-custom flex items-center justify-between">
@@ -74,7 +78,7 @@ export function Navigation() {
               href={link.href}
               className={cn(
                 "text-sm font-medium transition-colors hover:text-gray-900",
-                pathname === link.href ? "text-gray-900" : "text-gray-500"
+                pathname === link.href ? "text-gray-900" : "text-gray-600"
               )}
             >
               {link.label}
@@ -84,55 +88,61 @@ export function Navigation() {
 
         {/* Desktop CTA */}
         <div className="hidden md:flex items-center gap-4">
-          <Link href="https://demo.zenixa.pk" target="_blank" className="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">
+          <Link href="https://demo.zenixa.pk" target="_blank" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
             Live Demo
           </Link>
           {isLoggedIn ? (
             <Button
-              size="sm"
-              variant="outline"
               asChild
-              className="rounded-lg px-5 h-9"
+              variant="outline"
+              size="sm"
+              className="border-gray-200 hover:bg-gray-50"
             >
               <Link href="/account" className="flex items-center gap-2">
-                <User className="w-4 h-4" />
+                <User className="h-4 w-4" />
                 Account
               </Link>
             </Button>
           ) : (
             <Button
-              size="sm"
               asChild
-              className="bg-gray-900 hover:bg-gray-800 text-white rounded-lg px-5 h-9"
+              variant="outline"
+              size="sm"
+              className="border-gray-200 hover:bg-gray-50"
             >
-              <Link href="/account/login">Login</Link>
+              <Link href="/auth/login" className="flex items-center gap-2">
+                <User className="h-4 w-4" />
+                Login
+              </Link>
             </Button>
           )}
+          <Button asChild size="sm" className="bg-gray-900 hover:bg-gray-800 text-white">
+            <Link href="https://wa.me/923040260023" target="_blank">
+              Get Started
+            </Link>
+          </Button>
         </div>
 
-        {/* Mobile Menu Toggle */}
+        {/* Mobile Menu Button */}
         <button
-          className="md:hidden p-2 text-gray-600"
+          className="md:hidden p-2 text-gray-600 hover:text-gray-900"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label="Toggle menu"
         >
-          {isMobileMenuOpen ? (
-            <X className="w-6 h-6" />
-          ) : (
-            <Menu className="w-6 h-6" />
-          )}
+          {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
       </div>
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="absolute top-full left-0 right-0 bg-white border-b border-gray-100 p-4 shadow-lg md:hidden animate-in slide-in-from-top-2">
-          <nav className="flex flex-col gap-4">
+        <div className="md:hidden absolute top-full left-0 right-0 bg-white border-b border-gray-100 shadow-lg">
+          <nav className="container-custom py-4 flex flex-col gap-4">
             {navLinks.map((link) => (
               <Link
                 key={link.label}
                 href={link.href}
                 className={cn(
-                  "text-base font-medium py-2 border-b border-gray-50",
+                  "text-base font-medium py-2 transition-colors",
                   pathname === link.href ? "text-gray-900" : "text-gray-600"
                 )}
                 onClick={() => setIsMobileMenuOpen(false)}
@@ -143,34 +153,36 @@ export function Navigation() {
             <Link
               href="https://demo.zenixa.pk"
               target="_blank"
-              className="text-base font-medium py-2 text-gray-600 border-b border-gray-50"
+              className="text-base font-medium text-gray-600 py-2"
+              onClick={() => setIsMobileMenuOpen(false)}
             >
               Live Demo
             </Link>
-            {isLoggedIn ? (
-              <Button
-                className="w-full"
-                variant="outline"
-                asChild
-              >
-                <Link href="/account" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center justify-center gap-2">
-                  <User className="w-4 h-4" />
-                  My Account
+            <div className="flex flex-col gap-2 pt-4 border-t border-gray-100">
+              {isLoggedIn ? (
+                <Button asChild variant="outline" className="w-full justify-center">
+                  <Link href="/account">
+                    <User className="h-4 w-4 mr-2" />
+                    Account
+                  </Link>
+                </Button>
+              ) : (
+                <Button asChild variant="outline" className="w-full justify-center">
+                  <Link href="/auth/login">
+                    <User className="h-4 w-4 mr-2" />
+                    Login
+                  </Link>
+                </Button>
+              )}
+              <Button asChild className="w-full bg-gray-900 hover:bg-gray-800 text-white">
+                <Link href="https://wa.me/923040260023" target="_blank">
+                  Get Started
                 </Link>
               </Button>
-            ) : (
-              <Button
-                className="w-full bg-gray-900 text-white mt-2"
-                asChild
-              >
-                <Link href="/account/login" onClick={() => setIsMobileMenuOpen(false)}>Login</Link>
-              </Button>
-            )}
+            </div>
           </nav>
         </div>
       )}
     </header>
   );
 }
-
-export { Navigation as Header };

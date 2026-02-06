@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { AnimatedSection } from "@/components/shared/animated-section";
 import { Button } from "@/components/ui/button";
 import { Check, ArrowRight, Zap } from "lucide-react";
@@ -107,7 +108,7 @@ export function PricingSection() {
             </AnimatedSection>
 
             <AnimatedSection delay={300}>
-              <div className="border border-gray-200 rounded-xl p-6 bg-white">
+              <div className="border border-gray-200 rounded-xl p-6 bg-white relative">
                 <h3 className="font-semibold text-gray-900 mb-4">Common Questions</h3>
                 <div className="space-y-4 text-sm">
                   <div>
@@ -128,6 +129,17 @@ export function PricingSection() {
                     <p className="font-medium text-gray-900">Do I get support after setup?</p>
                     <p className="text-gray-600 mt-1">Yes. You get free support on all existing features forever. New features or custom work is quoted separately.</p>
                   </div>
+                </div>
+
+                {/* Zchappie questioning pose */}
+                <div className="hidden md:block absolute -right-4 -bottom-4">
+                  <Image
+                    src="/zchappie/questioning.png"
+                    alt="Zchappie thinking"
+                    width={120}
+                    height={120}
+                    className="object-contain"
+                  />
                 </div>
               </div>
             </AnimatedSection>

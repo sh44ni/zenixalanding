@@ -37,6 +37,16 @@ const faqs = [
       "We integrate whatever your business needs — COD (Cash on Delivery), bank transfers, JazzCash, EasyPaisa, Stripe, and more. All gateway setup is included in the PKR 45,000 package at no extra charge. Tell us what you need and we'll set it up.",
   },
   {
+    question: "I'm on Shopify — can you recreate my store?",
+    answer:
+      "Yes! Send us your current Shopify store and we'll recreate it with modern technology, better performance, and zero monthly fees. We'll migrate your products, categories, and design. You keep your brand, lose the monthly bill.",
+  },
+  {
+    question: "I sell on Daraz/Instagram — is this for me?",
+    answer:
+      "Absolutely. If you're selling on Daraz, you're giving away 30% in commissions and don't own your customer data. We'll take your products and build you a professional store at yourbrand.pk. Your own brand, your own customers, no commissions.",
+  },
+  {
     question: "Do I need technical knowledge?",
     answer:
       "No. We handle the entire setup and provide a user-friendly admin panel. You can add/edit products, manage orders, update content, and view analytics — all without any technical knowledge. We also provide training to get you started.",
@@ -55,16 +65,6 @@ const faqs = [
     question: "What about renewal costs?",
     answer:
       "After the first year, renewal is just PKR 5,000/year. That covers domain + hosting renewal. No other fees. Compare that to Shopify's PKR 42,000+/year and you'll see why Zenixa makes sense for Pakistani businesses.",
-  },
-  {
-    question: "Can I upgrade or add features later?",
-    answer:
-      "Yes! Your store is built on a flexible platform. You can add features like multiple languages, advanced analytics, membership systems, booking systems, or any custom functionality. We provide quotes for additional features based on your requirements.",
-  },
-  {
-    question: "How does shipping integration work?",
-    answer:
-      "We can integrate your store with popular Pakistani courier services like Leopards, TCS, M&P, and others. This allows automatic tracking updates and can even calculate shipping costs based on destination. Integration fees may vary by courier.",
   },
 ];
 

@@ -1,6 +1,8 @@
 "use client";
 
 import { HeroSection } from "@/components/sections/hero-section";
+import { PainPointSection } from "@/components/sections/pain-point-section";
+import { HowItWorksSection } from "@/components/sections/how-it-works-section";
 import { FeaturesSection } from "@/components/sections/features-section";
 import { ComparisonSection } from "@/components/sections/comparison-section";
 import { PricingSection } from "@/components/sections/pricing-section";
@@ -15,6 +17,8 @@ export default function HomePage() {
   return (
     <>
       <HeroSection onGetStarted={openModal} />
+      <PainPointSection />
+      <HowItWorksSection />
       <FeaturesSection />
       <ComparisonSection />
       <PricingSection />
@@ -23,4 +27,3 @@ export default function HomePage() {
     </>
   );
 }
-
