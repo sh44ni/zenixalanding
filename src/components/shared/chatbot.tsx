@@ -114,6 +114,57 @@ export function ChatBot() {
         setChatStarted(true);
     };
 
+    // Detect and save leads from messages
+    const detectAndSaveLead = useCallback(async (messageContent: string, conversationId?: string) => {
+        // Phone number patterns (Pakistani and international)
+        const phonePatterns = [
+            /(?:\+92|0092|92)?[\s-]?3[0-9]{2}[\s-]?[0-9]{7}/g, // Pakistani mobile
+            /(?:\+92|0092|92)?[\s-]?[0-9]{2,3}[\s-]?[0-9]{7,8}/g, // Pakistani landline
+            /\b0[0-9]{10}\b/g, // 03xx format
+            /\b\+?[0-9]{10,14}\b/g // Generic international
+        ];
+
+        // Email pattern
+        const emailPattern = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
+
+        let phone: string | null = null;
+        let email: string | null = null;
+
+        // Try to find phone number
+        for (const pattern of phonePatterns) {
+            const matches = messageContent.match(pattern);
+            if (matches && matches.length > 0) {
+                phone = matches[0].replace(/[\s-]/g, '');
+                break;
+            }
+        }
+
+        // Try to find email
+        const emailMatches = messageContent.match(emailPattern);
+        if (emailMatches && emailMatches.length > 0) {
+            email = emailMatches[0];
+        }
+
+        // If we found contact info, save the lead
+        if (phone || email) {
+            try {
+                await fetch("/api/chat/lead", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        phone,
+                        email,
+                        conversationId,
+                        interest: "e-commerce store",
+                    }),
+                });
+                console.log("Lead captured:", { phone, email });
+            } catch (error) {
+                console.error("Failed to save lead:", error);
+            }
+        }
+    }, []);
+
     const sendMessage = async () => {
         if (!input.trim() || isLoading) return;
 
@@ -126,6 +177,9 @@ export function ChatBot() {
         setMessages(newMessages);
         setInput("");
         setIsLoading(true);
+
+        // Check for lead info in the user's message
+        detectAndSaveLead(userMessage.content, sessionId);
 
         try {
             const response = await fetch("/api/chat", {
