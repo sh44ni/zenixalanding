@@ -1,12 +1,25 @@
 "use client";
 
-import { useState, useRef, useEffect, KeyboardEvent } from "react";
+import { useState, useRef, useEffect, KeyboardEvent, useCallback } from "react";
 import { X, Send, User, MessageSquare, ChevronRight } from "lucide-react";
 import Image from "next/image";
 
 interface Message {
     role: "user" | "assistant";
     content: string;
+    timestamp?: string;
+}
+
+// Generate or retrieve session ID
+function getSessionId(): string {
+    if (typeof window === "undefined") return "";
+
+    let sessionId = localStorage.getItem("zchappie_session_id");
+    if (!sessionId) {
+        sessionId = `session_${Date.now()}_${Math.random().toString(36).substring(2, 11)}`;
+        localStorage.setItem("zchappie_session_id", sessionId);
+    }
+    return sessionId;
 }
 
 export function ChatBot() {
@@ -18,8 +31,57 @@ export function ChatBot() {
     const [isLoading, setIsLoading] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
     const [isTextMinimized, setIsTextMinimized] = useState(false);
+    const [sessionId, setSessionId] = useState("");
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
+    const lastSavedMessageCount = useRef(0);
+
+    // Initialize session ID
+    useEffect(() => {
+        setSessionId(getSessionId());
+    }, []);
+
+    // Save conversation to database
+    const saveConversation = useCallback(async (msgs: Message[], status: "active" | "ended" = "active") => {
+        if (!sessionId || msgs.length === 0) return;
+
+        try {
+            await fetch("/api/chat/save", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    sessionId,
+                    messages: msgs.map(m => ({
+                        ...m,
+                        timestamp: m.timestamp || new Date().toISOString()
+                    })),
+                    status,
+                    visitorInfo: {
+                        userAgent: navigator.userAgent,
+                        pageUrl: window.location.href,
+                    }
+                }),
+            });
+            lastSavedMessageCount.current = msgs.length;
+        } catch (error) {
+            console.error("Failed to save conversation:", error);
+        }
+    }, [sessionId]);
+
+    // Auto-save conversation every few messages
+    useEffect(() => {
+        if (messages.length > 0 && messages.length > lastSavedMessageCount.current + 1) {
+            saveConversation(messages, "active");
+        }
+    }, [messages, saveConversation]);
+
+    // Save when chat closes
+    const handleClose = useCallback(() => {
+        if (messages.length > 0) {
+            saveConversation(messages, "ended");
+        }
+        setIsOpen(false);
+    }, [messages, saveConversation]);
 
     // Delay visibility for smooth entrance
     useEffect(() => {
@@ -55,7 +117,11 @@ export function ChatBot() {
     const sendMessage = async () => {
         if (!input.trim() || isLoading) return;
 
-        const userMessage: Message = { role: "user", content: input.trim() };
+        const userMessage: Message = {
+            role: "user",
+            content: input.trim(),
+            timestamp: new Date().toISOString()
+        };
         const newMessages = [...messages, userMessage];
         setMessages(newMessages);
         setInput("");
@@ -73,15 +139,23 @@ export function ChatBot() {
             }
 
             const data = await response.json();
-            setMessages([...newMessages, { role: "assistant", content: data.message }]);
+            const assistantMessage: Message = {
+                role: "assistant",
+                content: data.message,
+                timestamp: new Date().toISOString()
+            };
+            const updatedMessages = [...newMessages, assistantMessage];
+            setMessages(updatedMessages);
+
+            // Save after each exchange
+            saveConversation(updatedMessages, "active");
         } catch {
-            setMessages([
-                ...newMessages,
-                {
-                    role: "assistant",
-                    content: "Sorry, I'm having trouble connecting. Please try again or reach out on WhatsApp: +92 304 026 0023",
-                },
-            ]);
+            const errorMessage: Message = {
+                role: "assistant",
+                content: "Sorry, I'm having trouble connecting. Please try again or reach out on WhatsApp: +92 304 026 0023",
+                timestamp: new Date().toISOString()
+            };
+            setMessages([...newMessages, errorMessage]);
         } finally {
             setIsLoading(false);
         }
@@ -92,13 +166,6 @@ export function ChatBot() {
             e.preventDefault();
             sendMessage();
         }
-    };
-
-    const handleClose = () => {
-        setIsOpen(false);
-        // Reset chat state when closed for fresh start next time
-        // setChatStarted(false);
-        // setMessages([]);
     };
 
     if (!isVisible) return null;
@@ -355,7 +422,7 @@ export function ChatBot() {
             {/* Close Button when chat is open */}
             {isOpen && (
                 <button
-                    onClick={() => setIsOpen(false)}
+                    onClick={handleClose}
                     className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-gray-900 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 hover:bg-gray-800"
                     aria-label="Close chat"
                 >

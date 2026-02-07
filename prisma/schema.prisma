@@ -138,3 +138,35 @@ model Blog {
 
   @@index([published, publishedAt])
 }
+
+// Chatbot conversation storage
+model ChatConversation {
+  id          String   @id @default(cuid())
+  sessionId   String   @unique // Browser session identifier
+  messages    Json     // Array of {role, content, timestamp}
+  visitorInfo Json?    // Optional: user-agent, page URL, etc.
+  status      String   @default("active") // "active", "ended"
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([createdAt])
+}
+
+// Leads captured from chatbot
+model ChatLead {
+  id             String   @id @default(cuid())
+  name           String?
+  phone          String?
+  email          String?
+  businessName   String?
+  interest       String?  // What they're interested in
+  conversationId String?  // Link to ChatConversation
+  source         String   @default("chatbot")
+  status         String   @default("new") // "new", "contacted", "converted", "not_interested"
+  notes          String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([status])
+  @@index([createdAt])
+}

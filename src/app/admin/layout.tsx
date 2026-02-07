@@ -14,11 +14,15 @@ import {
     Loader2,
     ShoppingBag,
     Wallet,
-    FileText
+    FileText,
+    MessageCircle,
+    UserPlus
 } from "lucide-react";
 
 const navItems = [
     { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
+    { label: "Conversations", href: "/admin/conversations", icon: MessageCircle },
+    { label: "Leads", href: "/admin/leads", icon: UserPlus },
     { label: "Orders", href: "/admin/orders", icon: ShoppingBag },
     { label: "Applications", href: "/admin/applications", icon: ClipboardList },
     { label: "Affiliates", href: "/admin/affiliates", icon: Users },
