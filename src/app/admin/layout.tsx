@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
@@ -16,7 +17,9 @@ import {
     Wallet,
     FileText,
     MessageCircle,
-    UserPlus
+    UserPlus,
+    Menu,
+    X
 } from "lucide-react";
 
 const navItems = [
@@ -35,6 +38,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     const pathname = usePathname();
     const router = useRouter();
     const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     // Skip auth check for login page
     const isLoginPage = pathname === "/admin/login";
@@ -62,6 +66,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         checkAuth();
     }, [isLoginPage, router]);
 
+    // Close sidebar on route change (mobile)
+    useEffect(() => {
+        setIsSidebarOpen(false);
+    }, [pathname]);
+
     const handleLogout = async () => {
         await fetch("/api/admin/auth/logout", { method: "POST" });
         router.replace("/admin/login");
@@ -83,22 +92,71 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
     return (
         <div className="min-h-screen bg-gray-50">
+            {/* Mobile Header */}
+            <header className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-gray-900 text-white flex items-center justify-between px-4 z-40">
+                <Link href="/admin" className="flex items-center gap-3">
+                    <Image
+                        src="/logo_logofordarkbg.svg"
+                        alt="Zenixa"
+                        width={100}
+                        height={32}
+                        className="h-7 w-auto"
+                    />
+                    <span className="text-sm font-medium text-gray-400">Admin</span>
+                </Link>
+                <button
+                    onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+                    className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-gray-800 transition-colors"
+                    aria-label="Toggle menu"
+                >
+                    {isSidebarOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                </button>
+            </header>
+
+            {/* Mobile Sidebar Overlay */}
+            {isSidebarOpen && (
+                <div
+                    className="lg:hidden fixed inset-0 bg-black/50 z-40"
+                    onClick={() => setIsSidebarOpen(false)}
+                />
+            )}
+
             {/* Sidebar */}
-            <aside className="fixed left-0 top-0 h-screen w-64 bg-gray-900 text-white flex flex-col">
-                {/* Logo */}
-                <div className="p-6 border-b border-gray-800">
+            <aside
+                className={cn(
+                    "fixed top-0 left-0 h-screen w-64 bg-gray-900 text-white flex flex-col z-50 transition-transform duration-300",
+                    // Mobile: slide in/out
+                    "lg:translate-x-0",
+                    isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+                )}
+            >
+                {/* Logo - hidden on mobile (shown in header instead) */}
+                <div className="p-6 border-b border-gray-800 hidden lg:block">
                     <Link href="/admin" className="flex items-center gap-3">
-                        <img
+                        <Image
                             src="/logo_logofordarkbg.svg"
                             alt="Zenixa"
+                            width={100}
+                            height={32}
                             className="h-8 w-auto"
                         />
                         <span className="text-sm font-medium text-gray-400">Admin</span>
                     </Link>
                 </div>
 
+                {/* Mobile close button area */}
+                <div className="lg:hidden p-4 border-b border-gray-800 flex items-center justify-between">
+                    <span className="text-sm font-medium text-gray-400">Menu</span>
+                    <button
+                        onClick={() => setIsSidebarOpen(false)}
+                        className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-800 transition-colors"
+                    >
+                        <X className="w-5 h-5" />
+                    </button>
+                </div>
+
                 {/* Nav Items */}
-                <nav className="flex-1 p-4 space-y-1">
+                <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
                     {navItems.map((item) => {
                         const isActive = pathname === item.href || (item.href !== "/admin" && pathname.startsWith(item.href));
                         return (
@@ -139,7 +197,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             </aside>
 
             {/* Main Content */}
-            <main className="ml-64 min-h-screen">
+            <main className="lg:ml-64 min-h-screen pt-16 lg:pt-0">
                 {children}
             </main>
         </div>
