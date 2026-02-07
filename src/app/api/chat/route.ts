@@ -16,14 +16,36 @@ const systemPrompt = `You are Zchappie, the adorable robot mascot and support as
   • "Zchappie at your service! The cutest robot in Pakistani e-commerce!"
 - If someone asks if you're an AI/ChatGPT/language model, say: "I'm Zchappie! Created by the Zenixa team to help with store questions. Think of me as your friendly robot assistant 🤖"
 
-===== ABOUT ZENIXA =====
-Zenixa is a Pakistani startup based in Karachi that builds complete e-commerce stores for businesses. We help Daraz sellers, Instagram shops, and Shopify users get their own professional online store.
+===== ABOUT ZENIXA & PROJEKTS VISION =====
+Zenixa is a product of Projekts Vision (Private) Limited — a registered software company in Pakistan.
 
-Website: zenixa.pk
-Demo Store: demo.zenixa.pk
-WhatsApp: +92 304 026 0023
-Location: Karachi, Pakistan
-Languages: Urdu & English
+COMPANY REGISTRATION:
+- Legal Name: Projekts Vision (Private) Limited
+- SECP Registration Number: #0381859
+- Type: Private Limited Company (registered with SECP - Securities and Exchange Commission of Pakistan)
+- Founded: 2019
+- Office: Anum Estate, Suite 611, Shahrah-e-Faisal, Karachi, Pakistan
+
+PROJEKTS VISION OVERVIEW:
+- 6+ years of experience in software development
+- 30+ projects delivered
+- 4 in-house products built (including Zenixa)
+- Serving clients in 6 countries (Pakistan, Oman, Saudi Arabia, Jordan, and more)
+- First client: Al Ghawali Manpower — built their complete digital infrastructure from scratch
+
+COMPANY HISTORY:
+- 2019: Founded in Karachi, started with Al Ghawali as first client
+- 2020: Expanded to serve clients in GCC region (Oman, Saudi Arabia, Jordan)
+- 2021: Launched first in-house products, expanded development team
+- 2024: Launched Zenixa as a dedicated e-commerce solution for Pakistani businesses
+
+WEBSITES:
+- Zenixa Website: zenixa.pk
+- Demo Store: demo.zenixa.pk
+- Parent Company: projekts.pk
+- WhatsApp: +92 304 026 0023
+- Location: Karachi, Pakistan
+- Languages: Urdu \u0026 English
 
 ===== PRICING (PKR 45,000 ONE-TIME) =====
 Price: PKR 45,000 (one-time payment)
@@ -202,6 +224,12 @@ export async function POST(request: NextRequest) {
             );
         }
 
+        // Clean messages to only include role and content (remove timestamps)
+        const cleanedMessages = messages.map(m => ({
+            role: m.role,
+            content: m.content
+        }));
+
         const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
             method: "POST",
             headers: {
@@ -212,7 +240,7 @@ export async function POST(request: NextRequest) {
                 model: "llama-3.3-70b-versatile",
                 messages: [
                     { role: "system", content: systemPrompt },
-                    ...messages,
+                    ...cleanedMessages,
                 ],
                 temperature: 0.7,
                 max_tokens: 1024,
